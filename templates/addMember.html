@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="icon"
+      href="static/images/one/favicon-32x32.png"
+      type="image/png"
+    />
+    <!--plugins-->
+    <link href="assets/plugins/simplebar/css/simplebar.css" rel="stylesheet" />
+    <link
+      href="assets/plugins/perfect-scrollbar/css/perfect-scrollbar.css"
+      rel="stylesheet"
+    />
+    <link
+      href="assets/plugins/metismenu/css/metisMenu.min.css"
+      rel="stylesheet"
+    />
+    <!-- Bootstrap CSS -->
+    <link href="static/css/one/bootstrap.min.css" rel="stylesheet" />
+    <link href="static/css/one/bootstrap-extended.css" rel="stylesheet" />
+    <link href="static/css/one/style.css" rel="stylesheet" />
+    <link href="static/css/one/icons.css" rel="stylesheet" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css"
+    />
+
+    <!-- loader-->
+    <link href="static/css/one/pace.min.css" rel="stylesheet" />
+
+    <!--Theme Styles-->
+    <link href="static/css/one/dark-theme.css" rel="stylesheet" />
+    <link href="static/css/one/light-theme.css" rel="stylesheet" />
+    <link href="static/css/one/semi-dark.css" rel="stylesheet" />
+    <link href="static/css/one/header-colors.css" rel="stylesheet" />
+
+    <title>Onedash - Bootstrap 5 Admin Template</title>
+  </head>
+
+  <body>
+    <!--start wrapper-->
+    <div class="wrapper">
+      <!--start top header-->
+      <header class="top-header">
+        <nav class="navbar navbar-expand gap-3">
+          <div class="mobile-toggle-icon fs-3">
+            <i class="bi bi-list"></i>
+          </div>
+          <form class="searchbar">
+            <div
+              class="
+                position-absolute
+                top-50
+                translate-middle-y
+                search-icon
+                ms-3
+              "
+            >
+              <i class="bi bi-search"></i>
+            </div>
+            <input
+              class="form-control"
+              type="text"
+              placeholder="Type here to search"
+            />
+            <div
+              class="
+                position-absolute
+                top-50
+                translate-middle-y
+                search-close-icon
+              "
+            >
+              <i class="bi bi-x-lg"></i>
+            </div>
+          </form>
+          <div class="top-navbar-right ms-auto">
+            <ul class="navbar-nav align-items-center">
+              <li class="nav-item search-toggle-icon">
+                <a class="nav-link" href="#">
+                  <div class="">
+                    <i class="bi bi-search"></i>
+                  </div>
+                </a>
+              </li>
+              <li class="nav-item dropdown dropdown-user-setting">
+                <a class="dropdown-item" href="/logout">
+                  <div class="d-flex align-items-center">
+                    <div class=""><i class="bi bi-lock-fill"></i></div>
+                    <div class="ms-3"><span>Logout</span></div>
+                  </div>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </nav>
+      </header>
+      <!--end top header-->
+
+      <!--start sidebar -->
+      <aside class="sidebar-wrapper" data-simplebar="true">
+        <div class="sidebar-header">
+          <div>
+            <img
+              src="static/images/cropped-favicon-90x90.png"
+              class="logo-icon"
+              alt="logo icon"
+            />
+          </div>
+          <div>
+            <h4 class="logo-text">Bombay Karate Club</h4>
+          </div>
+          <div class="toggle-icon ms-auto"><i class="bi bi-list"></i></div>
+        </div>
+        <!--navigation-->
+        <ul class="metismenu" id="menu">
+          <li>
+            <a href="/admin" class="has-arrow">
+              <div class="parent-icon"><i class="bi bi-house-fill"></i></div>
+              <div class="menu-title">Dashboard</div>
+            </a>
+            <ul>
+              <li>
+                <a href="/addDojo"><i class="bi bi-circle"></i>Add Dojo</a>
+              </li>
+              <li>
+                <a href="/members"><i class="bi bi-circle"></i>Members</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+        <!--end navigation-->
+      </aside>
+      <!--end sidebar -->
+
+      <!--start content-->
+      <main class="page-content">
+        <!--breadcrumb-->
+
+        <!--end breadcrumb-->
+
+        <div class="row">
+          <div class="col-xl-9 mx-auto">
+            <h6 class="mb-0 text-uppercase"></h6>
+
+            <div class="card">
+              <div class="card-body">
+                <div class="border p-4 rounded">
+                  <div class="card-title d-flex align-items-center">
+                    <h5 class="mb-0">Add Member</h5>
+                  </div>
+                  <hr />
+                  <div class="row mb-3">
+                    <label
+                      for="inputEnterYourName"
+                      class="col-sm-3 col-form-label"
+                      >First Name</label
+                    >
+                    <div class="col-sm-9">
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="inputEnterYourName"
+                        placeholder="Enter First Name"
+                      />
+                    </div>
+                  </div>
+                  <div class="row mb-3">
+                    <label
+                      for="inputEnterYourName"
+                      class="col-sm-3 col-form-label"
+                      >Last Name</label
+                    >
+                    <div class="col-sm-9">
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="inputEnterYourName"
+                        placeholder="Enter Last Name"
+                      />
+                    </div>
+                  </div>
+                  <div class="row mb-3">
+                    <label
+                      for="inputEnterYourName"
+                      class="col-sm-3 col-form-label"
+                      >Rank</label
+                    >
+                    <div class="col-sm-9">
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="inputEnterYourName"
+                        placeholder="Enter Rank"
+                      />
+                    </div>
+                  </div>
+                  <div class="row mb-3">
+                    <label for="inputPhoneNo2" class="col-sm-3 col-form-label"
+                      >Phone No</label
+                    >
+                    <div class="col-sm-9">
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="inputPhoneNo2"
+                        placeholder="Phone No"
+                      />
+                    </div>
+                  </div>
+                  <div class="row mb-3">
+                    <label
+                      for="inputEmailAddress2"
+                      class="col-sm-3 col-form-label"
+                      >Email Address</label
+                    >
+                    <div class="col-sm-9">
+                      <input
+                        type="email"
+                        class="form-control"
+                        id="inputEmailAddress2"
+                        placeholder="Email Address"
+                      />
+                    </div>
+                  </div>
+
+                  <div class="row mb-3">
+                    <label for="inputAddress4" class="col-sm-3 col-form-label"
+                      >Address</label
+                    >
+                    <div class="col-sm-9">
+                      <textarea
+                        class="form-control"
+                        id="inputAddress4"
+                        rows="3"
+                        placeholder="Address"
+                      ></textarea>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <label class="col-sm-3 col-form-label"></label>
+                    <div class="col-sm-9">
+                      <button type="submit" class="btn btn-primary px-5">
+                        Register
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+      <!--end page main-->
+
+      <!--start overlay-->
+      <div class="overlay nav-toggle-icon"></div>
+      <!--end overlay-->
+
+      <!--Start Back To Top Button-->
+      <a href="javaScript:;" class="back-to-top"
+        ><i class="bx bxs-up-arrow-alt"></i
+      ></a>
+      <!--End Back To Top Button-->
+
+      <!--start switcher-->
+      <div class="switcher-body">
+        <button
+          class="btn btn-primary btn-switcher shadow-sm"
+          type="button"
+          data-bs-toggle="offcanvas"
+          data-bs-target="#offcanvasScrolling"
+          aria-controls="offcanvasScrolling"
+        >
+          <i class="bi bi-paint-bucket me-0"></i>
+        </button>
+        <div
+          class="offcanvas offcanvas-end shadow border-start-0 p-2"
+          data-bs-scroll="true"
+          data-bs-backdrop="false"
+          tabindex="-1"
+          id="offcanvasScrolling"
+        >
+          <div class="offcanvas-header border-bottom">
+            <h5 class="offcanvas-title" id="offcanvasScrollingLabel">
+              Theme Customizer
+            </h5>
+            <button
+              type="button"
+              class="btn-close text-reset"
+              data-bs-dismiss="offcanvas"
+            ></button>
+          </div>
+          <div class="offcanvas-body">
+            <h6 class="mb-0">Theme Variation</h6>
+            <hr />
+            <div class="form-check form-check-inline">
+              <input
+                class="form-check-input"
+                type="radio"
+                name="inlineRadioOptions"
+                id="LightTheme"
+                value="option1"
+                checked
+              />
+              <label class="form-check-label" for="LightTheme">Light</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input
+                class="form-check-input"
+                type="radio"
+                name="inlineRadioOptions"
+                id="DarkTheme"
+                value="option2"
+              />
+              <label class="form-check-label" for="DarkTheme">Dark</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input
+                class="form-check-input"
+                type="radio"
+                name="inlineRadioOptions"
+                id="SemiDarkTheme"
+                value="option3"
+              />
+              <label class="form-check-label" for="SemiDarkTheme"
+                >Semi Dark</label
+              >
+            </div>
+            <hr />
+            <div class="form-check form-check-inline">
+              <input
+                class="form-check-input"
+                type="radio"
+                name="inlineRadioOptions"
+                id="MinimalTheme"
+                value="option3"
+              />
+              <label class="form-check-label" for="MinimalTheme"
+                >Minimal Theme</label
+              >
+            </div>
+            <hr />
+            <h6 class="mb-0">Header Colors</h6>
+            <hr />
+            <div class="header-colors-indigators">
+              <div class="row row-cols-auto g-3">
+                <div class="col">
+                  <div class="indigator headercolor1" id="headercolor1"></div>
+                </div>
+                <div class="col">
+                  <div class="indigator headercolor2" id="headercolor2"></div>
+                </div>
+                <div class="col">
+                  <div class="indigator headercolor3" id="headercolor3"></div>
+                </div>
+                <div class="col">
+                  <div class="indigator headercolor4" id="headercolor4"></div>
+                </div>
+                <div class="col">
+                  <div class="indigator headercolor5" id="headercolor5"></div>
+                </div>
+                <div class="col">
+                  <div class="indigator headercolor6" id="headercolor6"></div>
+                </div>
+                <div class="col">
+                  <div class="indigator headercolor7" id="headercolor7"></div>
+                </div>
+                <div class="col">
+                  <div class="indigator headercolor8" id="headercolor8"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--end switcher-->
+    </div>
+    <!--end wrapper-->
+
+    <!-- Bootstrap bundle JS -->
+    <script src="static/js/one/bootstrap.bundle.min.js"></script>
+    <!--plugins-->
+    <script src="static/js/one/jquery.min.js"></script>
+    <script src="assets/plugins/simplebar/js/simplebar.min.js"></script>
+    <script src="assets/plugins/metismenu/js/metisMenu.min.js"></script>
+    <script src="assets/plugins/perfect-scrollbar/js/perfect-scrollbar.js"></script>
+    <script src="static/js/one/pace.min.js"></script>
+    <!--app-->
+    <script src="static/js/one/app.js"></script>
+  </body>
+</html>

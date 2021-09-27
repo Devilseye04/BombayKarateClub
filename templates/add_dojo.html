@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="icon"
+      href="static/images/one/favicon-32x32.png"
+      type="image/png"
+    />
+    <!--plugins-->
+    <link
+      href="static/plugins/vectormap/jquery-jvectormap-2.0.2.css"
+      rel="stylesheet"
+    />
+    <link
+      href="static/plugins/simplebar/css/one/simplebar.css"
+      rel="stylesheet"
+    />
+    <link
+      href="static/plugins/perfect-scrollbar/css/one/perfect-scrollbar.css"
+      rel="stylesheet"
+    />
+    <link
+      href="static/plugins/metismenu/css/one/metisMenu.min.css"
+      rel="stylesheet"
+    />
+    <!-- Bootstrap CSS -->
+    <link href="static/css/one/bootstrap.min.css" rel="stylesheet" />
+    <link href="static/css/one/bootstrap-extended.css" rel="stylesheet" />
+    <link href="static/css/one/style.css" rel="stylesheet" />
+    <link href="static/css/one/icons.css" rel="stylesheet" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css"
+    />
+
+    <!-- loader-->
+    <link href="static/css/one/pace.min.css" rel="stylesheet" />
+
+    <!--Theme Styles-->
+    <link href="static/css/one/dark-theme.css" rel="stylesheet" />
+    <link href="static/css/one/light-theme.css" rel="stylesheet" />
+    <link href="static/css/one/semi-dark.css" rel="stylesheet" />
+    <link href="static/css/one/header-colors.css" rel="stylesheet" />
+
+    <title>BKC - Admin Panel</title>
+  </head>
+
+  <body>
+    <!--start wrapper-->
+    <div class="wrapper">
+      <!--start top header-->
+      <header class="top-header">
+        <nav class="navbar navbar-expand gap-3">
+          <div class="mobile-toggle-icon fs-3">
+            <i class="bi bi-list"></i>
+          </div>
+          <form class="searchbar">
+            <div
+              class="
+                position-absolute
+                top-50
+                translate-middle-y
+                search-icon
+                ms-3
+              "
+            >
+              <i class="bi bi-search"></i>
+            </div>
+            <input
+              class="form-control"
+              type="text"
+              placeholder="Type here to search"
+            />
+            <div
+              class="
+                position-absolute
+                top-50
+                translate-middle-y
+                search-close-icon
+              "
+            >
+              <i class="bi bi-x-lg"></i>
+            </div>
+          </form>
+          <div class="top-navbar-right ms-auto">
+            <ul class="navbar-nav align-items-center">
+              <li class="nav-item search-toggle-icon">
+                <a class="nav-link" href="#">
+                  <div class="">
+                    <i class="bi bi-search"></i>
+                  </div>
+                </a>
+              </li>
+              <li class="nav-item dropdown dropdown-user-setting">
+                <a class="dropdown-item" href="/logout">
+                  <div class="d-flex align-items-center">
+                    <div class=""><i class="bi bi-lock-fill"></i></div>
+                    <div class="ms-3"><span>Logout</span></div>
+                  </div>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </nav>
+      </header>
+      
+      <!--start sidebar -->
+      <aside class="sidebar-wrapper" data-simplebar="true">
+        <div class="sidebar-header">
+          <div>
+            <img
+              src="static/images/cropped-favicon-90x90.png"
+              class="logo-icon"
+              alt="logo icon"
+            />
+          </div>
+          <div>
+            <h4 class="logo-text">Bombay Karate Club</h4>
+          </div>
+          <div class="toggle-icon ms-auto"><i class="bi bi-list"></i></div>
+        </div>
+        <!--navigation-->
+        <ul class="metismenu" id="menu">
+          <li>
+            <a href="/admin" class="has-arrow">
+              <div class="parent-icon"><i class="bi bi-house-fill"></i></div>
+              <div class="menu-title">Dashboard</div>
+            </a>
+            <ul>
+              <li>
+                <a href="/addDojo"
+                  ><i class="bi bi-circle"></i>Add Dojo</a
+                >
+              </li>
+              <li>
+                <a href="/members"
+                  ><i class="bi bi-circle"></i>Members</a
+                >
+              </li>
+            </ul>
+          </li>
+        </ul>
+        <!--end navigation-->
+      </aside>
+      <!--end sidebar -->
+
+      <main class="page-content">
+        <div class="row row-cols-1 row-cols-lg-2 row-cols-xl-2 row-cols-xxl-4">
+          
+      <h3>Add a Dojo</h3>
+      <br />
+      <form action="/addDojo" method="POST">
+        <div class="mb-3">
+          <label for="exampleFormControlInput1" class="form-label">Name</label>
+          <input type="text" class="form-control" name="name" />
+        </div>
+        <div class="mb-3">
+          <label for="exampleFormControlInput1" class="form-label"
+            >Sensei</label
+          >
+          <input type="text" class="form-control" name="sensei" />
+        </div>
+        <div class="mb-3">
+          <label for="exampleFormControlInput1" class="form-label">Days</label>
+          <input type="text" class="form-control" name="days" />
+        </div>
+        <div class="mb-3">
+          <label for="exampleFormControlInput1" class="form-label"
+            >Time of the Day</label
+          >
+          <input type="text" class="form-control" name="time_1" />
+        </div>
+        <div class="mb-3">
+          <label for="exampleFormControlInput1" class="form-label">Time</label>
+          <input type="text" class="form-control" name="time_2" />
+        </div>
+        <div class="mb-3">
+          <label for="exampleFormControlInput1" class="form-label">Venue</label>
+          <input type="text" class="form-control" name="venue" />
+        </div>
+        <div class="mb-3">
+          <label for="exampleFormControlInput1" class="form-label"
+            >Image Path</label
+          >
+          <input type="text" class="form-control" name="dojo_image" /><br />
+        </div>
+        <input type="submit" class="btn btn-dark" value="Submit" />
+      </form>
+    </div>
+    <!-- <footer class="site_footer_wrap scheme_dark">
+      <div class="copyright_wrap scheme_">
+        <div class="copyright_wrap_inner">
+          <div class="content_wrap">
+            <div class="sc_columns">
+              <div class="column1">
+                <div class="column1_inner">
+                  <div class="menu_footer_wrap">
+                    <div class="menu_footer_wrap_inner">
+                      <nav class="menu_footer_nav_area">
+                        <ul id="menu_footer" class="menu_footer_nav">
+                          <li class="menu-item current-menu-item">
+                            <a href="/"><span>Home</span></a>
+                          </li>
+                          <li class="menu-item">
+                            <a href="/about"><span>About Us</span></a>
+                          </li>
+                          <li class="menu-item">
+                            <a href="/dojo"><span>Dojos</span></a>
+                          </li>
+                          <li class="menu-item">
+                            <a href="/contact"><span>Get In Touch</span></a>
+                          </li>
+                          <li class="menu-item">
+                            <a href="https://www.ajka-i.com" target="_blank"
+                              ><span>AJKA Interntational</span></a
+                            >
+                          </li>
+                        </ul>
+                      </nav>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="column2">
+                <div class="column2_inner">
+                  <div class="copyright_text">
+                    © 2021 Bombay Karate Club <br />
+                    <span style="font-size: 11px; font-weight: 700"
+                      >JKA Style Karate Club affiliated to</span
+                    >
+                    <img src="static/images/ajkai.png" width="200" />
+                  </div>
+                  <div class="socials_footer_wrap socials_wrap">
+                    <div class="socials_footer_wrap_inner">
+                      <span class="social_item">
+                        <a
+                          href="https://www.facebook.com/Bombaykarateclub/"
+                          target="_blank"
+                          class="social_icons social_facebook"
+                        >
+                          <span class="trx_addons_icon-facebook"></span>
+                        </a>
+                      </span>
+                      <span class="social_item">
+                        <a
+                          href="https://www.instagram.com/bombaykarateclub/"
+                          target="_blank"
+                          class="social_icons social_instagram"
+                        >
+                          <span class="trx_addons_icon-instagram"></span>
+                        </a>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer> -->
+    <script
+      type="text/javascript"
+      src="static/js/vendor/jquery/jquery.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="static/js/vendor/jquery/jquery-migrate.min.js"
+    ></script>
+    <script type="text/javascript" src="static/js/custom/custom.js"></script>
+    <script type="text/javascript" src="static/js/vendor/post.js"></script>
+    <script
+      type="text/javascript"
+      src="static/js/vendor/essgrid/lightbox.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="static/js/vendor/essgrid/jquery.themepunch.tools.min.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="static/js/vendor/revslider/jquery.themepunch.revolution.min.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="static/js/vendor/revslider/extensions/revolution.extension.slideanims.min.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="static/js/vendor/revslider/extensions/revolution.extension.actions.min.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="static/js/vendor/revslider/extensions/revolution.extension.layeranimation.min.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="static/js/vendor/revslider/extensions/revolution.extension.navigation.min.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="static/js/vendor/sb-instagram.min.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="static/js/vendor/swiper/swiper.jquery.min.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="static/js/vendor/magnific/jquery.magnific-popup.min.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="static/js/vendor/layout.grid/trx_addons.js"
+    ></script>
+    <script type="text/javascript" src="static/js/vendor/scripts.js"></script>
+    <script
+      type="text/javascript"
+      src="static/js/vendor/layout.grid/layout.front.min.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="static/js/vendor/layout.grid/jquery.fs.boxer.min.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="static/js/vendor/layout.grid/slick.min.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="static/js/vendor/layout.grid/init.min.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="http://maps.google.com/maps/api/js?key="
+    ></script>
+
+    <a href="#" class="trx_addons_scroll_to_top" title="Scroll to top"
+      ><i class="icon icon-up"></i
+    ></a>
+  </body>
+</html>
