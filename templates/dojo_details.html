@@ -121,19 +121,106 @@
                                     </div>
                                 </div>
                             </div>
+
+                            
+
+
                             <div data-vc-full-width="true" data-vc-full-width-init="false" class="vc_row wpb_row vc_row-fluid vc_1custom_1474288884820 vc_row-has-fill">
                                 <div class="wpb_column vc_column_container vc_col-sm-12">
                                     <div class="vc_column-inner ">
                                         <div class="wpb_wrapper" style="text-align: center;">
                        
-                                            <h3 class="sc_item_title sc_content_title sc_align_center sc_item_title_style_default">Member list</h3>
+                                            <h3 class="sc_item_title sc_content_title sc_align_center sc_item_title_style_default"> Attendence</h3>
                                             <div class="vc_empty_space height_huge hide_on_mobile hide_on_notebook h32px">
                                                 <span class="vc_empty_space_inner"></span>
                                             </div>
                                             
                                             
                                                                                       
-                                                                                        
+                                                      
+                                            
+                                            
+																						
+                                            
+<!-- <table style="height:auto" border="1" width="100%" cellspacing="0" cellpadding="0">
+<tbody>
+<tr>
+<th style="text-align: center; font-weight: bold; border: 1px solid #ccc;" width="2%">Sr #</th>
+<th style="text-align: center; font-weight: bold; border: 1px solid #ccc;" width="5%">Membership #</th>
+<th style="text-align: center; font-weight: bold; border: 1px solid #ccc;" width="6%">Member Names</th>
+{% for class in classdays %}
+<th style="text-align: center; font-weight: bold; border: 1px solid #ccc;" width="2%">{{ class }}</th>
+{% endfor %}
+
+</tr>
+{% for member in memberDetails %}
+{% for a in attendence %}
+{% if a.member_id == member.member_id %}
+<tr>
+<td style="text-align: center; font-weight: normal; border: 1px solid #ccc;">{{loop.index}}</td>
+<td style="text-align: center; font-weight: normal; border: 1px solid #ccc;">{{member.member_id}}</td>
+<td style="text-align: left; font-weight: normal; border: 1px solid #ccc;"> {{ member.fname + " " + member.lname }} </td>
+
+
+{% for class in classdays %}
+{% if class == a.date %}
+<td style="text-align: center; font-weight: normal; border: 1px solid #ccc;"> P </td>
+{% else %}
+<td style="text-align: center; font-weight: normal; border: 1px solid #ccc;"> A </td>
+{% endif %}
+{% endfor %}
+
+</tr>
+{% endif %}
+{% endfor %}
+{% endfor %}
+</tbody>
+</table> -->
+
+<table style="height:auto" border="1" width="100%" cellspacing="0" cellpadding="0">
+    <tbody>
+        <tr>
+        <th style="text-align: center; font-weight: bold; border: 1px solid #ccc;" width="2%">Sr #</th>
+        <th style="text-align: center; font-weight: bold; border: 1px solid #ccc;" width="5%">Membership #</th>
+        <th style="text-align: center; font-weight: bold; border: 1px solid #ccc;" width="6%">Member Names</th>
+        <th style="text-align: center; font-weight: bold; border: 1px solid #ccc;" width="6%"></th>
+        <th style="text-align: center; font-weight: bold; border: 1px solid #ccc;" width="6%"></th>
+        <th style="text-align: center; font-weight: bold; border: 1px solid #ccc;" width="6%"></th>
+        <th style="text-align: center; font-weight: bold; border: 1px solid #ccc;" width="6%"></th>
+        <th style="text-align: center; font-weight: bold; border: 1px solid #ccc;" width="6%"></th>
+        <th style="text-align: center; font-weight: bold; border: 1px solid #ccc;" width="6%"></th>
+        <th style="text-align: center; font-weight: bold; border: 1px solid #ccc;" width="6%"></th>
+        <th style="text-align: center; font-weight: bold; border: 1px solid #ccc;" width="6%"></th>
+        </tr>
+        <tr>
+        <td style="text-align: center; font-weight: normal; border: 1px solid #ccc;">asjb</td>
+        <td style="text-align: center; font-weight: normal; border: 1px solid #ccc;">as</td>
+        <td style="text-align: left; font-weight: normal; border: 1px solid #ccc;"> asnkl </td>
+        <td style="text-align: center; font-weight: normal; border: 1px solid #ccc;"> A </td>
+        <td style="text-align: center; font-weight: normal; border: 1px solid #ccc;"> A </td>
+        <td style="text-align: center; font-weight: normal; border: 1px solid #ccc;"> A </td>
+        <td style="text-align: center; font-weight: normal; border: 1px solid #ccc;"> A </td>
+        <td style="text-align: center; font-weight: normal; border: 1px solid #ccc;"> A </td>
+        <td style="text-align: center; font-weight: normal; border: 1px solid #ccc;"> A </td>
+        <td style="text-align: center; font-weight: normal; border: 1px solid #ccc;"> A </td>
+        <td style="text-align: center; font-weight: normal; border: 1px solid #ccc;"> A </td>
+        </tr>
+    </tbody>
+</table>
+
+<div class="vc_empty_space height_large h32px">
+    <span class="vc_empty_space_inner"></span>
+</div>
+<h3 class="sc_item_title sc_content_title sc_align_center sc_item_title_style_default">Member list</h3>
+                                            <div class="vc_empty_space height_huge hide_on_mobile hide_on_notebook h32px">
+                                                <span class="vc_empty_space_inner"></span>
+                                            </div>
+                                            
+                                            
+                                                                                      
+                                                      
+                                            
+                                            
 																						
                                             
 <table style="height:auto" border="1" width="100%" cellspacing="0" cellpadding="0">
@@ -148,6 +235,7 @@
 <th style="text-align: center; font-weight: bold; border: 1px solid #ccc;" width="05%">Current Credit</th>
 </tr>
 {% for member in memberDetails %}
+{% if member.age > 17 %}
 <tr>
 <td style="text-align: center; font-weight: normal; border: 1px solid #ccc;">{{loop.index}}</td>
 <td style="text-align: center; font-weight: normal; border: 1px solid #ccc;">{{member.member_id}}</td>
@@ -161,6 +249,7 @@
 {% endif %}
 {% endfor %}
 </tr>
+{% endif %}
 {% endfor %}
 </tbody>
 </table>
@@ -171,7 +260,7 @@
 
 											
 <div id="sc_content_381" class="sc_content sc_content_default"><br>
-	<h3 class="sc_item_title sc_content_title sc_align_center sc_item_title_style_default">BKC HQ Credits Table</h3>
+	<h3 class="sc_item_title sc_content_title sc_align_center sc_item_title_style_default">BKC Points Table</h3>
 </div>
 <div class="vc_empty_space height_huge hide_on_mobile hide_on_notebook h32px">
     <span class="vc_empty_space_inner"></span>
@@ -184,20 +273,20 @@
 <th style="text-align: center; font-weight: bold; border: 1px solid #ccc;" width="10%">Members</th>
 <th style="text-align: center; font-weight: bold; border: 1px solid #ccc;" width="5%">Rank</th>
 <th style="text-align: center; font-weight: bold; border: 1px solid #ccc;" width="10%">Level</th>
-<th style="text-align: center; font-weight: bold; border: 1px solid #ccc;" width="05%">Current Credit</th>
+<th style="text-align: center; font-weight: bold; border: 1px solid #ccc;" width="05%">Current Points</th>
 </tr>
 
 
 {% for member in memberDetails %}
-{% if member.age > 17 %}
+{% if member.age <= 17 %}
 <tr>
 <td style="text-align: center; font-weight: normal; border: 1px solid #ccc;"> {{ loop.index }} </td>
 <td style="text-align: left; font-weight: normal; border:   1px solid #ccc;"> {{ member.fname + " " + member.lname }} </td>
 <td style="text-align: center; font-weight: normal; border: 1px solid #ccc;"> {{ member.rank }} </td>
 <td style="text-align: center; font-weight: normal; border: 1px solid #ccc;"> Demo</td>
-{% for c in credit %}
-{% if c.member_id == member.member_id %}
-<td style="text-align: center; font-weight: normal; border: 1px solid #ccc;"><b> {{ c.credit }} </b></td>
+{% for p in points %}
+{% if p.member_id == member.member_id %}
+<td style="text-align: center; font-weight: normal; border: 1px solid #ccc;"><b> {{ p.points }} </b></td>
 {% endif %}
 {% endfor %}
 </tr>
