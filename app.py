@@ -1,3 +1,4 @@
+from datetime import datetime
 from enum import unique
 from logging import debug
 from flask import Flask, render_template, request,redirect,session
@@ -69,11 +70,26 @@ class credit_table(db.Model):
     member_id = db.Column(db.String(100), nullable=False)
     credit = db.Column(db.Integer,nullable=False)
 
+
+class point_table(db.Model):
+    id = db.Column(db.Integer,primary_key=True)
+    member_id = db.Column(db.String(100), nullable=False)
+    points = db.Column(db.Integer,nullable=False)
 class Admin(db.Model):
     id = db.Column(db.Integer,primary_key=True)
     admin_uname = db.Column(db.String(100), nullable=False,unique=True)
     admin_pass = db.Column(db.String(100),nullable=False)
     email = db.Column(db.String(100),nullable=False)
+
+class Attendence(db.Model):
+    id = db.Column(db.Integer,primary_key=True)
+    member_id = db.Column(db.String(100), nullable=False)
+    date = db.Column(db.String(100),nullable=True)
+    status = db.Column(db.String(100),nullable=True)
+
+class Classdays(db.Model):
+    id = db.Column(db.Integer,primary_key=True)
+    date = db.Column(db.String(100),nullable=False)
     
 
 
@@ -126,15 +142,20 @@ def members():
 
 @app.route("/addMember",methods=['GET','POST'])
 def addMember():
-    if not session.get("name"):
-        # if not there in the session then redirect to the login page
-        return redirect("/login")
+    # if not session.get("name"):
+    #     # if not there in the session then redirect to the login page
+    #     return redirect("/login")
     if request.method == 'POST':
         addMem = bkcMember(member_id = request.form["member_id"],dojo_id = request.form["dojo_id"],fname = request.form["fname"],lname=request.form["lname"],rank=request.form["rank"],email= request.form["email"],address=request.form["address"],age=request.form["age"],pnum=request.form["pnum"],unique_id=request.form["unique_id"])
         creds = credit_table(member_id=request.form["member_id"],credit=0)
+        attendence = Attendence(member_id = request.form["member_id"])
+        points = point_table(member_id=request.form["member_id"],points=0)
+        
         db.session.add(addMem)
         if int(request.form["age"]) > 17:
             db.session.add(creds)
+        else:
+            db.session.add(points)
         db.session.commit()
         print("Member Added")
     return render_template("addMember.html")
@@ -170,14 +191,35 @@ def tournaments():
 def qr():
     return render_template('qrscan.html')
 
+@app.route('/startClass')
+def startClass():
+    # todays_date = datetime.today().strftime('%d-%m-%Y')
+    todays_date = "28-09-2021"
+    classdays = Classdays(date = todays_date)
+    db.session.add(classdays)
+    db.session.commit()
+    return redirect("/qr")
+
+
+
 @app.route('/attendence/<memID>', methods=['GET','POST'])
 def attendence(memID):
     memberDetails = bkcMember.query.all()
     credit = credit_table().query.all()
+    points = point_table().query.all()
+    # todays_date = datetime.today().strftime('%d-%m-%Y')
+    todays_date = "28-09-2021"
+    attendence = Attendence(member_id=memID,date=todays_date,status="P")
+    db.session.add(attendence)
+    db.session.commit()
     for member in memberDetails:
         if memID == member.member_id:
             if member.age < 18:
                 print("kids")
+                for p in points:
+                        if member.member_id == p.member_id:
+                            p.points = int(p.points)+10
+                            db.session.commit()
             else:
                 print("adults")
                 if member.rank.lower().replace(" ","") in ['9kyu','8kyu','7kyu']:
@@ -213,7 +255,18 @@ def dojo():
 def dojoDetails():
     memberDetails = bkcMember.query.filter_by(dojo_id = "BKC01").all()
     credit = credit_table.query.all() 
-    return render_template('dojo_details.html',credit = credit,memberDetails = memberDetails)
+    classdays = Classdays.query.with_entities(Classdays.date)
+    attendence = Attendence.query.all()
+    # classdays = classdays[::-1]
+    cdays = []
+    for c in classdays:
+        cdays = cdays + list(c)
+    print(cdays)
+    # for member in memberDetails:
+    #     for a in attendence:
+    #         if a.member_id == member.member_id
+
+    return render_template('dojo_details.html',credit = credit,memberDetails = memberDetails,classdays=cdays[:8],attendence=attendence)
 
 
 @app.route("/deleteTable")
