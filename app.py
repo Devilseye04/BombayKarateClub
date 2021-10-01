@@ -255,8 +255,10 @@ def dojo():
 def dojoDetails():
     memberDetails = bkcMember.query.filter_by(dojo_id = "BKC01").all()
     credit = credit_table.query.all() 
+    points = point_table().query.all()
     classdays = Classdays.query.with_entities(Classdays.date)
     attendence = Attendence.query.all()
+
     # classdays = classdays[::-1]
     cdays = []
     for c in classdays:
@@ -266,7 +268,7 @@ def dojoDetails():
     #     for a in attendence:
     #         if a.member_id == member.member_id
 
-    return render_template('dojo_details.html',credit = credit,memberDetails = memberDetails,classdays=cdays[:8],attendence=attendence)
+    return render_template('dojo_details.html',credit = credit,memberDetails = memberDetails,classdays=cdays[:8],attendence=attendence,points=points)
 
 
 @app.route("/deleteTable")
