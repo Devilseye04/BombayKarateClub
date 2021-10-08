@@ -5,6 +5,7 @@ from flask import Flask, render_template, request,redirect,session
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS, cross_origin
 from flask_session import Session
+import json
 
 
 
@@ -19,6 +20,7 @@ Session(app)
 
 class Dojos(db.Model):
     id = db.Column(db.Integer, primary_key=True)
+    dojo_id = db.Column(db.String(100), nullable=False)
     name = db.Column(db.String(100), nullable=False)
     sensei = db.Column(db.String(200), nullable=False)
     days = db.Column(db.String(200), nullable=False)
@@ -26,6 +28,7 @@ class Dojos(db.Model):
     time_2 = db.Column(db.String(200), nullable=False)
     venue = db.Column(db.String(200), nullable=False)
     dojo_image = db.Column(db.String(200), nullable=False)
+
 
 class league(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -92,7 +95,10 @@ class Classdays(db.Model):
     date = db.Column(db.String(100),nullable=False)
     
 
-
+class Fees(db.Model):
+    id = db.Column(db.Integer,primary_key=True)
+    dojo_id = db.Column(db.String(100),nullable=False)
+    member_id = db.Column(db.String(100),nullable=False)
 
 
 @app.route("/")
@@ -142,9 +148,9 @@ def members():
 
 @app.route("/addMember",methods=['GET','POST'])
 def addMember():
-    # if not session.get("name"):
-    #     # if not there in the session then redirect to the login page
-    #     return redirect("/login")
+    if not session.get("name"):
+        # if not there in the session then redirect to the login page
+        return redirect("/login")
     if request.method == 'POST':
         addMem = bkcMember(member_id = request.form["member_id"],dojo_id = request.form["dojo_id"],fname = request.form["fname"],lname=request.form["lname"],rank=request.form["rank"],email= request.form["email"],address=request.form["address"],age=request.form["age"],pnum=request.form["pnum"],unique_id=request.form["unique_id"])
         creds = credit_table(member_id=request.form["member_id"],credit=0)
@@ -167,7 +173,7 @@ def addDojo():
         # if not there in the session then redirect to the login page
         return redirect("/login")
     if request.method == 'POST':
-        dojo = Dojos(name = request.form['name'],sensei = request.form['sensei'],days =request.form['days'],time_1= request.form['time_1'],time_2=request.form['time_2'],venue=request.form['venue'], dojo_image=request.form['dojo_image'])
+        dojo = Dojos(dojo_id=request.form['dojo_id'],name = request.form['name'],sensei = request.form['sensei'],days =request.form['days'],time_1= request.form['time_1'],time_2=request.form['time_2'],venue=request.form['venue'], dojo_image=request.form['dojo_image'])
         db.session.add(dojo)
         db.session.commit()
         return render_template('add_dojo.html')
@@ -194,13 +200,11 @@ def qr():
 @app.route('/startClass')
 def startClass():
     # todays_date = datetime.today().strftime('%d-%m-%Y')
-    todays_date = "28-09-2021"
+    todays_date = "30-09-2021"
     classdays = Classdays(date = todays_date)
     db.session.add(classdays)
     db.session.commit()
     return redirect("/qr")
-
-
 
 @app.route('/attendence/<memID>', methods=['GET','POST'])
 def attendence(memID):
@@ -208,7 +212,7 @@ def attendence(memID):
     credit = credit_table().query.all()
     points = point_table().query.all()
     # todays_date = datetime.today().strftime('%d-%m-%Y')
-    todays_date = "28-09-2021"
+    todays_date = "30-09-2021"
     attendence = Attendence(member_id=memID,date=todays_date,status="P")
     db.session.add(attendence)
     db.session.commit()
@@ -240,6 +244,36 @@ def attendence(memID):
                 #             c.credit +=2
     return render_template("home.html")
 
+
+
+@app.route("/addCredits", methods=['GET','POST'])
+def addCredits():
+    if request.method == "POST":
+        memberDetails = bkcMember.query.all()
+        credit = credit_table().query.all()
+        addcred = request.form["credsValue"]
+        memID = request.form["credsID"]
+        print(memID)
+        for member in memberDetails:
+            if memID == member.member_id:
+                if member.age < 18:
+                    continue
+                else:
+                    print("adults")        
+                    for c in credit:
+                        if member.member_id == c.member_id:
+                            c.credit = int(c.credit)+int(addcred)
+                            db.session.commit()
+        return redirect("/Credits")
+
+@app.route("/Credits", methods=['GET','POST'])
+def credits():
+    memberDetails = bkcMember.query.all()        
+    credit = credit_table().query.all()
+    return render_template('credits.html',credit=credit,memberDetails=memberDetails)
+
+
+
 # User 
 
 @app.route("/about")
@@ -260,15 +294,37 @@ def dojoDetails():
     attendence = Attendence.query.all()
 
     # classdays = classdays[::-1]
-    cdays = []
-    for c in classdays:
-        cdays = cdays + list(c)
-    print(cdays)
     # for member in memberDetails:
     #     for a in attendence:
     #         if a.member_id == member.member_id
 
-    return render_template('dojo_details.html',credit = credit,memberDetails = memberDetails,classdays=cdays[:8],attendence=attendence,points=points)
+    mem_id=[]
+
+
+    cdays = []
+    for c in classdays:
+        cdays = cdays + list(c)
+
+    data = {}
+
+    # for a in attendence: 
+    #     for m in memberDetails:            
+    #         if a.member_id == m.member_id:
+    #             data.update({})
+
+    for c in cdays:
+        temp = []
+        for a in attendence:
+            if c == a.date:
+                if a.member_id in temp:
+                    continue
+                temp.append(a.member_id)
+        data.update({c : temp})    
+    
+    
+    print(data)
+    # data = json.loads(data)
+    return render_template('dojo_details.html',credit = credit,memberDetails = memberDetails,classdays=cdays[:8],attendence=attendence,points=points,data=data)
 
 
 @app.route("/deleteTable")
@@ -277,6 +333,8 @@ def deleteTable():
         # if not there in the session then redirect to the login page
         return redirect("/login")
     return render_template('dojo_details.html')
+
+
 
 
 if __name__ == '__main__':
