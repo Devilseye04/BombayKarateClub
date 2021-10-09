@@ -152,11 +152,20 @@ def addMember():
         # if not there in the session then redirect to the login page
         return redirect("/login")
     if request.method == 'POST':
-        addMem = bkcMember(member_id = request.form["member_id"],dojo_id = request.form["dojo_id"],fname = request.form["fname"],lname=request.form["lname"],rank=request.form["rank"],email= request.form["email"],address=request.form["address"],age=request.form["age"],pnum=request.form["pnum"],unique_id=request.form["unique_id"])
-        creds = credit_table(member_id=request.form["member_id"],credit=0)
-        attendence = Attendence(member_id = request.form["member_id"])
-        points = point_table(member_id=request.form["member_id"],points=0)
+        memCount = bkcMember.query.count() + 1 
+        if len(str(memCount)) == 1:
+            memCount = "00"+str(memCount)
+        elif len(str(memCount)) == 2:
+            memCount = "0"+str(memCount)
         
+        memId = request.form["dojo_id"].upper() + request.form["fname"][0].upper()+request.form["lname"][0].upper()+str(memCount)
+        addMem = bkcMember(member_id = memId,dojo_id = request.form["dojo_id"],fname = request.form["fname"],lname=request.form["lname"],rank=request.form["rank"],email= request.form["email"],address=request.form["address"],age=request.form["age"],pnum=request.form["pnum"],unique_id=str(memCount))
+        creds = credit_table(member_id=memId,credit=0)
+        attendence = Attendence(member_id = memId)
+        points = point_table(member_id=memId,points=0)
+        
+        
+
         db.session.add(addMem)
         if int(request.form["age"]) > 17:
             db.session.add(creds)
@@ -164,7 +173,9 @@ def addMember():
             db.session.add(points)
         db.session.commit()
         print("Member Added")
-    return render_template("addMember.html")
+        return render_template("addMember.html")
+    dojos = Dojos.query.all()
+    return render_template("addMember.html",dojos=dojos)
 
 
 @app.route("/addDojo",methods=['GET','POST'])
@@ -173,7 +184,11 @@ def addDojo():
         # if not there in the session then redirect to the login page
         return redirect("/login")
     if request.method == 'POST':
-        dojo = Dojos(dojo_id=request.form['dojo_id'],name = request.form['name'],sensei = request.form['sensei'],days =request.form['days'],time_1= request.form['time_1'],time_2=request.form['time_2'],venue=request.form['venue'], dojo_image=request.form['dojo_image'])
+        dojoCount = Dojos.query.count() + 1
+        if len(str(dojoCount))   == 1:
+            dojoCount = "0"+str(dojoCount)
+        dojoId = "BKC"+str(dojoCount)
+        dojo = Dojos(dojo_id=dojoId,name = request.form['name'],sensei = request.form['sensei'],days =request.form['days'],time_1= request.form['time_1'],time_2=request.form['time_2'],venue=request.form['venue'], dojo_image=request.form['dojo_image'])
         db.session.add(dojo)
         db.session.commit()
         return render_template('add_dojo.html')
@@ -246,13 +261,13 @@ def attendence(memID):
 
 
 
-@app.route("/addCredits", methods=['GET','POST'])
-def addCredits():
+@app.route("/addCredits/<memID>", methods=['GET','POST'])
+def addCredits(memID):
     if request.method == "POST":
         memberDetails = bkcMember.query.all()
         credit = credit_table().query.all()
         addcred = request.form["credsValue"]
-        memID = request.form["credsID"]
+        # memID = request.form["credsID"]
         print(memID)
         for member in memberDetails:
             if memID == member.member_id:

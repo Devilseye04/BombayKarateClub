@@ -35,21 +35,21 @@ function removeDuplicates() {
   var t = document.getElementById("attendenceTable");
   var seen = [];
   var r = t.getElementsByTagName("tr");
-  console.log(r.length);
+  //   console.log(r.length);
   var arrLen = r.length;
   for (var i = 1; i < r.length; i++) {
-    console.log(i);
+    // console.log(i);
     var d = r[i].getElementsByTagName("td")[1].innerHTML;
-    console.log(d);
+    // console.log(d);
     if (seen.includes(d)) {
       r[i].remove();
-      console.log("removed");
+      //   console.log("removed");
       i -= 1;
     } else {
-      console.log("push");
+      //   console.log("push");
       seen.push(d);
     }
-    console.log(seen);
+    // console.log(seen);
   }
 }
 

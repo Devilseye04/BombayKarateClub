@@ -146,7 +146,7 @@
                  -->
                                                             
                 
-<table style="height:auto" border="1" width="100%" cellspacing="0" cellpadding="0" id="attendenceTable" >
+<table style="height:auto;" border="1" width="100%" cellspacing="0" cellpadding="0" id="attendenceTable" >
 <tbody>
 <tr>
 <th style="text-align: center; font-weight: bold; border: 1px solid #ccc;" width="2%">Sr #</th>
@@ -254,6 +254,7 @@
 <tbody>
 <tr>
 <th style="text-align: center; font-weight: bold; border: 1px solid #ccc;" width="2%">Sr #</th>
+<th style="text-align: center; font-weight: bold; border: 1px solid #ccc;" width="10%">Membership #</th>
 <th style="text-align: center; font-weight: bold; border: 1px solid #ccc;" width="10%">Members</th>
 <th style="text-align: center; font-weight: bold; border: 1px solid #ccc;" width="5%">Rank</th>
 <th style="text-align: center; font-weight: bold; border: 1px solid #ccc;" width="10%">Level</th>
@@ -265,6 +266,7 @@
     {% if member.age <= 17 %}
         <tr>
         <td style="text-align: center; font-weight: normal; border: 1px solid #ccc;"> {{ loop.index }} </td>
+        <td style="text-align: center; font-weight: normal; border: 1px solid #ccc;">{{member.member_id}}</td>
         <td style="text-align: left; font-weight: normal; border:   1px solid #ccc;"> {{ member.fname + " " + member.lname }} </td>
         <td style="text-align: center; font-weight: normal; border: 1px solid #ccc;"> {{ member.rank }} </td>
         <td style="text-align: center; font-weight: normal; border: 1px solid #ccc;"> Demo</td>

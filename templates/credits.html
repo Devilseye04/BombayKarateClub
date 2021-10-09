@@ -134,6 +134,9 @@
               <li>
                 <a href="/members"><i class="bi bi-circle"></i>Members</a>
               </li>
+              <li>
+                <a href="/adminCredits"><i class="bi bi-circle"></i>Credits</a>
+              </li>
             </ul>
           </li>
         </ul>
@@ -146,156 +149,117 @@
         <!--breadcrumb-->
 
         <!--end breadcrumb-->
-        <form action="/addMember" method="POST">
-          <div class="row">
-            <div class="col-xl-9 mx-auto">
-              <h6 class="mb-0 text-uppercase"></h6>
 
-              <div class="card">
-                <div class="card-body">
-                  <div class="border p-4 rounded">
-                    <div class="card-title d-flex align-items-center">
-                      <h5 class="mb-0">Add Member</h5>
-                    </div>
-                    <hr />
-                    <div class="row mb-3">
-                      <select
-                        class="form-select"
-                        aria-label="Default select example"
-                        name="dojo_id"
-                      >
-                        <option selected required>Select Dojo</option>
-                        {% for dojo in dojos %}
-                        <option value="{{ dojo.dojo_id }}">
-                          {{ dojo.name }}
-                        </option>
-                        {% endfor %}
-                      </select>
-                    </div>
-                    <div class="row mb-3">
-                      <label
-                        for="inputEnterYourName"
-                        class="col-sm-3 col-form-label"
-                        >First Name</label
-                      >
-                      <div class="col-sm-9">
-                        <input
-                          type="text"
-                          class="form-control"
-                          id="inputEnterYourName"
-                          placeholder="Enter First Name"
-                          name="fname"
-                        />
-                      </div>
-                    </div>
-                    <div class="row mb-3">
-                      <label
-                        for="inputEnterYourName"
-                        class="col-sm-3 col-form-label"
-                        >Last Name</label
-                      >
-                      <div class="col-sm-9">
-                        <input
-                          type="text"
-                          class="form-control"
-                          id="inputEnterYourName"
-                          placeholder="Enter Last Name"
-                          name="lname"
-                        />
-                      </div>
-                    </div>
-                    <div class="row mb-3">
-                      <label
-                        for="inputEnterYourName"
-                        class="col-sm-3 col-form-label"
-                        >Rank</label
-                      >
-                      <div class="col-sm-9">
-                        <input
-                          type="text"
-                          class="form-control"
-                          id="inputEnterYourName"
-                          placeholder="Enter Rank"
-                          name="rank"
-                        />
-                      </div>
-                    </div>
-                    <div class="row mb-3">
-                      <label
-                        for="inputEnterYourName"
-                        class="col-sm-3 col-form-label"
-                        >Age</label
-                      >
-                      <div class="col-sm-9">
-                        <input
-                          type="text"
-                          class="form-control"
-                          id="inputEnterYourName"
-                          placeholder="Enter Age"
-                          name="age"
-                        />
-                      </div>
-                    </div>
-                    <div class="row mb-3">
-                      <label for="inputPhoneNo2" class="col-sm-3 col-form-label"
-                        >Phone No</label
-                      >
-                      <div class="col-sm-9">
-                        <input
-                          type="text"
-                          class="form-control"
-                          id="inputPhoneNo2"
-                          placeholder="Phone No"
-                          name="pnum"
-                        />
-                      </div>
-                    </div>
-                    <div class="row mb-3">
-                      <label
-                        for="inputEmailAddress2"
-                        class="col-sm-3 col-form-label"
-                        >Email Address</label
-                      >
-                      <div class="col-sm-9">
-                        <input
-                          type="email"
-                          class="form-control"
-                          id="inputEmailAddress2"
-                          placeholder="Email Address"
-                          name="email"
-                        />
-                      </div>
-                    </div>
+        <class class="row">
+          <div class="col-12 col-lg-12 col-xl-8 d-flex">
+            <div class="card radius-10 w-100">
+              <div class="card-body">
+                <div class="table-responsive mt-2">
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Member Names</th>
+                        <th scope="col">Credits</th>
+                        <th scope="col">Add</th>
+                      </tr>
+                    </thead>
 
-                    <div class="row mb-3">
-                      <label for="inputAddress4" class="col-sm-3 col-form-label"
-                        >Address</label
-                      >
-                      <div class="col-sm-9">
-                        <textarea
-                          class="form-control"
-                          id="inputAddress4"
-                          rows="3"
-                          placeholder="Address"
-                          name="address"
-                        ></textarea>
-                      </div>
-                    </div>
+                    <tbody>
+                      {% for member in memberDetails %} {% if member.age > 17 %}
+                      <tr>
+                        <td scope="row">{{loop.index}}</td>
+                        <td>{{ member.fname + " " + member.lname }}</td>
+                        {% for c in credit %} {% if c.member_id ==
+                        member.member_id %}
+                        <td>{{ c.credit }}</td>
+                        <td>
+                          <!-- Button trigger modal -->
 
-                    <div class="row">
-                      <label class="col-sm-3 col-form-label"></label>
-                      <div class="col-sm-9">
-                        <button type="submit" class="btn btn-primary px-5">
-                          Register
-                        </button>
-                      </div>
-                    </div>
-                  </div>
+                          <button
+                            type="button"
+                            class="btn btn-danger"
+                            data-bs-toggle="modal"
+                            data-bs-target="#exampleModal"
+                          >
+                            Add
+                          </button>
+
+                          <!-- Modal -->
+                          <div
+                            class="modal fade"
+                            id="exampleModal"
+                            tabindex="-1"
+                            aria-labelledby="exampleModalLabel"
+                            aria-hidden="true"
+                          >
+                            <form
+                              action="/addCredits/{{ member.member_id }}"
+                              method="POST"
+                            >
+                              <div class="modal-dialog">
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                    <h5
+                                      class="modal-title"
+                                      id="exampleModalLabel"
+                                    >
+                                      Add Credits
+                                    </h5>
+                                  </div>
+                                  <input
+                                    type="hidden"
+                                    name="credsID"
+                                    class="form-control"
+                                    id="exampleFormControlInput1"
+                                    value="{{ member.member_id }}"
+                                  />
+
+                                  <div class="modal-body">
+                                    <div class="mb-3">
+                                      <label
+                                        for="exampleFormControlInput1"
+                                        class="form-label"
+                                        >Enter number of credits to add</label
+                                      >
+                                      <input
+                                        type="text"
+                                        name="credsValue"
+                                        class="form-control"
+                                        id="exampleFormControlInput1"
+                                      />
+                                    </div>
+                                  </div>
+                                  <div class="modal-footer">
+                                    <button
+                                      type="button"
+                                      class="btn btn-secondary"
+                                      data-bs-dismiss="modal"
+                                    >
+                                      Close
+                                    </button>
+                                    <input
+                                      type="submit"
+                                      class="btn btn-danger"
+                                      value="Add"
+                                    />
+                                  </div>
+                                </div>
+                              </div>
+                            </form>
+                          </div>
+                        </td>
+                        {% endif %} {% endfor %}
+                      </tr>
+                      {% endif %} {% endfor %}
+                    </tbody>
+                  </table>
                 </div>
               </div>
             </div>
           </div>
-        </form>
+        </class>
+        <br />
       </main>
       <!--end page main-->
 
