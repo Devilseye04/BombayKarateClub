@@ -1,7 +1,7 @@
 from datetime import datetime
 from enum import unique
 from logging import debug
-from flask import Flask, render_template, request,redirect,session
+from flask import Flask, render_template, request,redirect,session,jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS, cross_origin
 from flask_session import Session
@@ -121,6 +121,19 @@ def login():
         
     return render_template("authentication-signin.html")
 
+@app.route("/loginApp",methods=['GET','POST'])
+def loginApp():
+    if request.method=='POST':
+        creds = Admin.query.filter_by(admin_uname = request.form['uname'],admin_pass=request.form['pass']).first()
+        print(creds)
+        if creds == None:
+            return jsonify({"status":"900"})
+        else:
+            session["name"] = request.form['uname']
+            return jsonify({"status":"800"})
+        
+    return render_template("authentication-signin.html")
+
 @app.route("/logout",methods=['GET','POST'])
 def logout():
     session.clear()
@@ -161,7 +174,7 @@ def addMember():
         memId = request.form["dojo_id"].upper() + request.form["fname"][0].upper()+request.form["lname"][0].upper()+str(memCount)
         addMem = bkcMember(member_id = memId,dojo_id = request.form["dojo_id"],fname = request.form["fname"],lname=request.form["lname"],rank=request.form["rank"],email= request.form["email"],address=request.form["address"],age=request.form["age"],pnum=request.form["pnum"],unique_id=str(memCount))
         creds = credit_table(member_id=memId,credit=0)
-        attendence = Attendence(member_id = memId)
+        # attendence = Attendence(member_id = memId)
         points = point_table(member_id=memId,points=0)
         
         
