@@ -239,38 +239,42 @@ def attendence(memID):
     memberDetails = bkcMember.query.all()
     credit = credit_table().query.all()
     points = point_table().query.all()
-    # todays_date = datetime.today().strftime('%d-%m-%Y')
-    todays_date = "30-09-2021"
-    attendence = Attendence(member_id=memID,date=todays_date,status="P")
-    db.session.add(attendence)
-    db.session.commit()
-    for member in memberDetails:
-        if memID == member.member_id:
-            if member.age < 18:
-                print("kids")
-                for p in points:
-                        if member.member_id == p.member_id:
-                            p.points = int(p.points)+10
-                            db.session.commit()
-            else:
-                print("adults")
-                if member.rank.lower().replace(" ","") in ['9kyu','8kyu','7kyu']:
-                    for c in credit:
-                        if member.member_id == c.member_id:
-                            c.credit = int(c.credit)+4
-                            db.session.commit()
+    todays_date = datetime.today().strftime('%d-%m-%Y')
+    # todays_date = "30-09-2021"
+    checkP = Attendence.query.filter_by(member_id=memID,date=todays_date)
+    if checkP is None:
+        attendence = Attendence(member_id=memID,date=todays_date,status="P")
+        db.session.add(attendence)
+        db.session.commit()
+        for member in memberDetails:
+            if memID == member.member_id:
+                if member.age < 18:
+                    print("kids")
+                    for p in points:
+                            if member.member_id == p.member_id:
+                                p.points = int(p.points)+10
+                                db.session.commit()
                 else:
-                    for c in credit:
-                        if member.member_id == c.member_id:
-                            c.credit = int(c.credit)+2
-                            db.session.commit()
-                            print("ID : "+ c.member_id)
-                            print("Credits : "+str(c.credit))
-                # elif member.rank.lower().replace(" ","") in ['6kyu','5kyu','4kyu']:
-                #     for c in credit:
-                #         if member.member_id == c.member_id:
-                #             c.credit +=2
-    return render_template("home.html")
+                    print("adults")
+                    if member.rank.lower().replace(" ","") in ['9kyu','8kyu','7kyu']:
+                        for c in credit:
+                            if member.member_id == c.member_id:
+                                c.credit = int(c.credit)+4
+                                db.session.commit()
+                    else:
+                        for c in credit:
+                            if member.member_id == c.member_id:
+                                c.credit = int(c.credit)+2
+                                db.session.commit()
+                                print("ID : "+ c.member_id)
+                                print("Credits : "+str(c.credit))
+                    # elif member.rank.lower().replace(" ","") in ['6kyu','5kyu','4kyu']:
+                    #     for c in credit:
+                    #         if member.member_id == c.member_id:
+                    #             c.credit +=2
+    else:
+        print("Not None")
+    return jsonify({"status":"800"})
 
 
 
