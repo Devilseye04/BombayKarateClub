@@ -179,8 +179,6 @@ def addMember():
         creds = credit_table(member_id=memId,credit=0)
         # attendence = Attendence(member_id = memId)
         points = point_table(member_id=memId,points=0)
-        
-        
 
         db.session.add(addMem)
         if int(request.form["age"]) > 17:
