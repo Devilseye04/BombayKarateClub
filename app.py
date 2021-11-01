@@ -241,8 +241,9 @@ def attendence(memID):
     points = point_table().query.all()
     todays_date = datetime.today().strftime('%d-%m-%Y')
     # todays_date = "30-09-2021"
-    checkP = Attendence.query.filter_by(member_id=memID,date=todays_date)
-    if checkP is None:
+    checkP = Attendence.query.filter_by(member_id=memID,date=todays_date).all()
+    
+    if len(checkP) > 0:
         attendence = Attendence(member_id=memID,date=todays_date,status="P")
         db.session.add(attendence)
         db.session.commit()
@@ -317,46 +318,49 @@ def dojo():
     alldojos = Dojos.query.all()
     return render_template('dojos.html',alldojos = alldojos)
 
-@app.route("/dojoDetails")
+@app.route("/dojoDetails", methods=['GET','POST'])
 def dojoDetails():
-    memberDetails = bkcMember.query.filter_by(dojo_id = "BKC01").all()
-    credit = credit_table.query.all() 
-    points = point_table().query.all()
-    classdays = Classdays.query.with_entities(Classdays.date)
-    attendence = Attendence.query.all()
+    if request.method == 'POST':
+        # myJson = request.get_json()
+        dojo_id = request.form['dojo_id']
+        memberDetails = bkcMember.query.filter_by(dojo_id = dojo_id).all()
+        credit = credit_table.query.all() 
+        points = point_table().query.all()
+        classdays = Classdays.query.with_entities(Classdays.date)
+        attendence = Attendence.query.all()
+        dojos = Dojos.query.all()
+        # classdays = classdays[::-1]
+        # for member in memberDetails:
+        #     for a in attendence:
+        #         if a.member_id == member.member_id
 
-    # classdays = classdays[::-1]
-    # for member in memberDetails:
-    #     for a in attendence:
-    #         if a.member_id == member.member_id
-
-    mem_id=[]
+        mem_id=[]
 
 
-    cdays = []
-    for c in classdays:
-        cdays = cdays + list(c)
+        cdays = []
+        for c in classdays:
+            cdays = cdays + list(c)
 
-    data = {}
+        data = {}
 
-    # for a in attendence: 
-    #     for m in memberDetails:            
-    #         if a.member_id == m.member_id:
-    #             data.update({})
+        # for a in attendence: 
+        #     for m in memberDetails:            
+        #         if a.member_id == m.member_id:
+        #             data.update({})
 
-    for c in cdays:
-        temp = []
-        for a in attendence:
-            if c == a.date:
-                if a.member_id in temp:
-                    continue
-                temp.append(a.member_id)
-        data.update({c : temp})    
-    
-    
-    print(data)
-    # data = json.loads(data)
-    return render_template('dojo_details.html',credit = credit,memberDetails = memberDetails,classdays=cdays[:8],attendence=attendence,points=points,data=data)
+        for c in cdays:
+            temp = []
+            for a in attendence:
+                if c == a.date:
+                    if a.member_id in temp:
+                        continue
+                    temp.append(a.member_id)
+            data.update({c : temp})    
+        
+        
+        print(data)
+        # data = json.loads(data)
+        return render_template('dojo_details.html',credit = credit,memberDetails = memberDetails,classdays=cdays[:8],attendence=attendence,points=points,data=data,dojos=dojos)
 
 
 @app.route("/deleteTable")

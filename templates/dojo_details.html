@@ -45,12 +45,27 @@
                     <div class="content_wrap">
                         <a class="logo" href="index.html"><img src="static/images/logo.jpg" class="logo_main" alt="" width="304" height="62"></a>
                         <nav class="menu_main_nav_area menu_hover_fade">
-                                <ul id="menu_main" class="menu_main_nav">
-                                    <li class="menu-item  current-menu-ancestor "><a href="index.html"><span>Home</span></a></li>
-                                      <li class="menu-item"><a href="about.html"><span>About Us</span></a></li>
-                                    <li class="menu-item current-menu-item"><a href="dojos.html"><span>Dojos</span></a></li>
-                                   </ul>
-                            </nav>
+                            <ul id="menu_main" class="menu_main_nav">
+                              <li
+                                class="
+                                  menu-item
+                                  current-menu-item
+                                  current-menu-ancestor
+                                  current-menu-parent
+                                  current-page-item
+                                "
+                              >
+                                <a href="/"><span>Home</span></a>
+                              </li>
+                              <li class="menu-item">
+                                <a href="/about"><span>About Us</span></a>
+                              </li>
+          
+                              <li class="menu-item">
+                                <a href="/dojo"><span>Dojos</span></a>
+                              </li>
+                            </ul>
+                          </nav>
                     </div>
                 </div>
             </div>
@@ -145,7 +160,7 @@
                   </div>
                  -->
                                                             
-                
+    <div id="toggletable1">            
 <table style="height:auto;" border="1" width="100%" cellspacing="0" cellpadding="0" id="attendenceTable" >
 <tbody>
 <tr>
@@ -171,7 +186,7 @@
                 <tr>
                 <td style="text-align: center; font-weight: normal; border: 1px solid #ccc;">{{loop.index}}</td>
                 <td style="text-align: center; font-weight: normal; border: 1px solid #ccc;">{{member.member_id}}</td>
-                <td style="text-align: left; font-weight: normal; border: 1px solid #ccc;"> {{ member.fname + " " + member.lname }} </td>
+                <td style="text-align: center; font-weight: normal; border: 1px solid #ccc;"> {{ member.fname + " " + member.lname }} </td>
                 {% for d in data %}
                     {% if member.member_id in data[d] %}                                        
                     <td style="text-align: center; font-weight: normal; border: 1px solid #ccc;"> P </td>
@@ -188,7 +203,7 @@
 </tbody>
 </table>
             
-
+</div>
 
 <div class="vc_empty_space height_large h32px">
     <span class="vc_empty_space_inner"></span>
@@ -204,7 +219,7 @@
                                             
                                             
 																						
-                                            
+                                            <div id="toggletable2">                                
 <table style="height:auto" border="1" width="100%" cellspacing="0" cellpadding="0">
 <tbody>
 <tr>
@@ -221,7 +236,7 @@
         <tr>
         <td style="text-align: center; font-weight: normal; border: 1px solid #ccc;">{{loop.index}}</td>
         <td style="text-align: center; font-weight: normal; border: 1px solid #ccc;">{{member.member_id}}</td>
-        <td style="text-align: left; font-weight: normal; border: 1px solid #ccc;"> {{ member.fname + " " + member.lname }} </td>
+        <td style="text-align: center; font-weight: normal; border: 1px solid #ccc;"> {{ member.fname + " " + member.lname }} </td>
         <td style="text-align: center; font-weight: normal; border: 1px solid #ccc;">{{ member.rank }}</td>
 
         <td style="text-align: center; font-weight: normal; border: 1px solid #ccc;"> Demo</td>
@@ -237,7 +252,8 @@
 {% endfor %}
 </tbody>
 </table>
-											
+											</div>
+
 <div class="vc_empty_space height_large h32px">
     <span class="vc_empty_space_inner"></span>
 </div>
@@ -250,6 +266,7 @@
     <span class="vc_empty_space_inner"></span>
 </div>
 <br>									
+<div id="toggletable3"> 
 <table style="height:auto" border="1" width="100%" cellspacing="0" cellpadding="0">
 <tbody>
 <tr>
@@ -267,7 +284,7 @@
         <tr>
         <td style="text-align: center; font-weight: normal; border: 1px solid #ccc;"> {{ loop.index }} </td>
         <td style="text-align: center; font-weight: normal; border: 1px solid #ccc;">{{member.member_id}}</td>
-        <td style="text-align: left; font-weight: normal; border:   1px solid #ccc;"> {{ member.fname + " " + member.lname }} </td>
+        <td style="text-align: center; font-weight: normal; border:   1px solid #ccc;"> {{ member.fname + " " + member.lname }} </td>
         <td style="text-align: center; font-weight: normal; border: 1px solid #ccc;"> {{ member.rank }} </td>
         <td style="text-align: center; font-weight: normal; border: 1px solid #ccc;"> Demo</td>
         {% for p in points %}
@@ -281,6 +298,7 @@
 	
 </tbody>
 </table>
+</div>
 <div class="vc_empty_space height_large h32px">
     <span class="vc_empty_space_inner"></span>
 </div>
@@ -370,6 +388,11 @@
 <script type='text/javascript' src='static/js/vendor/layout.grid/init.min.js'></script>
 <script type='text/javascript' src='static/js/index.js'></script>
 <a href="#" class="trx_addons_scroll_to_top" title="Scroll to top"><i class="icon icon-up"></i></a>
+<script>
+    
+ 
+   
+</script>
 </body>
 
 </html>

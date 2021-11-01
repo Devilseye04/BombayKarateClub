@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link
       rel="icon"
-      href="static/images/one/favicon-32x32.png"
+      href="static/images/cropped-favicon-300x300.png"
       type="image/png"
     />
     <!--plugins-->
@@ -41,8 +41,7 @@
     <link href="static/css/one/light-theme.css" rel="stylesheet" />
     <link href="static/css/one/semi-dark.css" rel="stylesheet" />
     <link href="static/css/one/header-colors.css" rel="stylesheet" />
-
-    <title>Onedash - Bootstrap 5 Admin Template</title>
+    <title>BKC - Admin Panel</title>
   </head>
 
   <body>
@@ -155,7 +154,7 @@
             <div class="card radius-10 w-100">
               <div class="card-body">
                 <div class="table-responsive mt-2">
-                  <table class="table">
+                  <table class="table" id="creditTable">
                     <thead>
                       <tr>
                         <th scope="col">#</th>
@@ -168,7 +167,10 @@
                     <tbody>
                       {% for member in memberDetails %} {% if member.age > 17 %}
                       <tr>
-                        <td scope="row">{{loop.index}}</td>
+                        <td scope="row">
+                          {{loop.index}}
+                          <input type="hidden" value="{{ member.member_id }}" />
+                        </td>
                         <td>{{ member.fname + " " + member.lname }}</td>
                         {% for c in credit %} {% if c.member_id ==
                         member.member_id %}
@@ -193,60 +195,55 @@
                             aria-labelledby="exampleModalLabel"
                             aria-hidden="true"
                           >
-                            <form
-                              action="/addCredits/{{ member.member_id }}"
-                              method="POST"
-                            >
-                              <div class="modal-dialog">
-                                <div class="modal-content">
-                                  <div class="modal-header">
-                                    <h5
-                                      class="modal-title"
-                                      id="exampleModalLabel"
-                                    >
-                                      Add Credits
-                                    </h5>
-                                  </div>
-                                  <input
-                                    type="hidden"
-                                    name="credsID"
-                                    class="form-control"
-                                    id="exampleFormControlInput1"
-                                    value="{{ member.member_id }}"
-                                  />
+                            <div class="modal-dialog">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <h5
+                                    class="modal-title"
+                                    id="exampleModalLabel"
+                                  >
+                                    Add Credits
+                                  </h5>
+                                </div>
+                                <input
+                                  type="hidden"
+                                  name="credsID"
+                                  class="form-control"
+                                  id="exampleFormControlInput1"
+                                  value="{{ member.member_id }}"
+                                />
 
-                                  <div class="modal-body">
-                                    <div class="mb-3">
-                                      <label
-                                        for="exampleFormControlInput1"
-                                        class="form-label"
-                                        >Enter number of credits to add</label
-                                      >
-                                      <input
-                                        type="text"
-                                        name="credsValue"
-                                        class="form-control"
-                                        id="exampleFormControlInput1"
-                                      />
-                                    </div>
-                                  </div>
-                                  <div class="modal-footer">
-                                    <button
-                                      type="button"
-                                      class="btn btn-secondary"
-                                      data-bs-dismiss="modal"
+                                <div class="modal-body">
+                                  <div class="mb-3">
+                                    <label
+                                      for="exampleFormControlInput1"
+                                      class="form-label"
+                                      >Enter number of credits to add</label
                                     >
-                                      Close
-                                    </button>
                                     <input
-                                      type="submit"
-                                      class="btn btn-danger"
-                                      value="Add"
+                                      type="text"
+                                      name="credsValue"
+                                      class="form-control"
+                                      id="exampleFormControlInput1"
                                     />
                                   </div>
                                 </div>
+                                <div class="modal-footer">
+                                  <button
+                                    type="button"
+                                    class="btn btn-secondary"
+                                    data-bs-dismiss="modal"
+                                  >
+                                    Close
+                                  </button>
+                                  <input
+                                    type="submit"
+                                    class="btn btn-danger"
+                                    value="Add"
+                                  />
+                                </div>
                               </div>
-                            </form>
+                            </div>
                           </div>
                         </td>
                         {% endif %} {% endfor %}
@@ -398,5 +395,16 @@
     <script src="static/js/one/pace.min.js"></script>
     <!--app-->
     <script src="static/js/one/app.js"></script>
+    <script>
+      $("#creditTable tbody tr td:nth-child(4)").click(function () {
+        var memID = $(this)
+          .parent()
+          .parent()
+          .find("td:first")
+          .children("input")
+          .val();
+        console.log(memID);
+      });
+    </script>
   </body>
 </html>
