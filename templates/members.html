@@ -187,32 +187,20 @@
                       </tr>
                     </thead>
                     <tbody>
+                      {% for member in members %}
                       <tr>
-                        <td>#48572</td>
+                        <td>{{loop.index}}</td>
+                        <td>{{ member.fname + " " + member.lname }}</td>
                         <td>
                           <div class="d-flex align-items-center gap-3">
-                            <div class="product-box border">
-                              <img
-                                src="static/images/one/products/04.png"
-                                alt=""
-                              />
-                            </div>
-                            <div class="product-info">
-                              <h6 class="product-name mb-1">
-                                Yellow Winter Jacket
-                              </h6>
-                            </div>
+                            {{ member.rank }}
                           </div>
                         </td>
-                        <td>
-                          <div class="d-flex align-items-center gap-3">1</div>
-                        </td>
-                        <td>$149</td>
-                        <td>
-                          <div class="d-flex align-items-center gap-3">
-                            Apr 11, 2021
-                          </div>
-                        </td>
+                        {% for dojo in dojos%} {% if dojo.dojo_id ==
+                        member.dojo_id%}
+                        <td>{{dojo.name}}</td>
+                        {% endif%} {% endfor %}
+                        <td>{{member.member_id}}</td>
                         <td>
                           <div class="d-flex align-items-center gap-3">
                             <!-- Button trigger modal -->
@@ -385,6 +373,7 @@
                           </div>
                         </td>
                       </tr>
+                      {% endfor %}
                     </tbody>
                   </table>
                 </div>

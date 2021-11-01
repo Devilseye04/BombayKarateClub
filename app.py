@@ -158,7 +158,9 @@ def admin():
 
 @app.route("/members")
 def members():
-    return render_template("members.html")
+    members =  bkcMember.query.all()
+    dojos = Dojos.query.all()
+    return render_template("members.html",members=members,dojos=dojos)
 
 @app.route("/addMember",methods=['GET','POST'])
 def addMember():
