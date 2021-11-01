@@ -6,7 +6,8 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS, cross_origin
 from flask_session import Session
 import json
-
+import os
+from werkzeug.utils import secure_filename
 
 
 app = Flask(__name__)
@@ -201,7 +202,13 @@ def addDojo():
         if len(str(dojoCount))   == 1:
             dojoCount = "0"+str(dojoCount)
         dojoId = "BKC"+str(dojoCount)
-        dojo = Dojos(dojo_id=dojoId,name = request.form['name'],sensei = request.form['sensei'],days =request.form['days'],time_1= request.form['time_1'],time_2=request.form['time_2'],venue=request.form['venue'], dojo_image=request.form['dojo_image'])
+        file = request.files['dojo_image']
+        file.seek(0, os.SEEK_END)
+        if file.tell() == 0:
+            return render_template('add_dojo.html',error_message=True) 
+        file.seek(0)
+        file.save('static/images/dojoImages/'+dojoId+'_'+secure_filename(file.filename)) 
+        dojo = Dojos(dojo_id=dojoId,name = request.form['name'],sensei = request.form['sensei'],days =request.form['days'],time_1= request.form['time_1'],time_2=request.form['time_2'],venue=request.form['venue'], dojo_image='static/images/dojoImages/'+dojoId+'_'+secure_filename(file.filename))
         db.session.add(dojo)
         db.session.commit()
         return render_template('add_dojo.html')

@@ -156,7 +156,7 @@
           
       <h3>Add a Dojo</h3>
       <br />
-      <form action="/addDojo" method="POST">
+      <form action="/addDojo" method="POST" enctype="multipart/form-data">
         <div class="mb-3">
           <label for="exampleFormControlInput1" class="form-label">Name</label>
           <input type="text" class="form-control" name="name" />
@@ -190,10 +190,13 @@
           <label for="exampleFormControlInput1" class="form-label"
             >Image Path</label
           >
-          <input type="text" class="form-control" name="dojo_image" /><br />
+          <input type="file" class="form-control" name="dojo_image" /><br />
         </div>
         <input type="submit" class="btn btn-dark" value="Submit" />
       </form>
+      {% if error_message %}
+      <script>alert("Please Enter Image File")</script>
+      {% endif %}
     </div>
     <!-- <footer class="site_footer_wrap scheme_dark">
       <div class="copyright_wrap scheme_">
