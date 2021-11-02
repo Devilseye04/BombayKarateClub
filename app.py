@@ -232,7 +232,7 @@ def addDojo():
             if len(str(dojoCount))   == 1:
                 dojoCount = "0"+str(dojoCount)
             dojoId = "BKC"+str(dojoCount)
-            if request.form["dojo_id"] == '' or request.form["name"] == '' or request.form["sensei"] == '' or request.form["days"] == '' or request.form["time_1"] == '' or request.form["time_2"] == '' or request.form["venue"] == '':
+            if request.form['name'] == '' or request.form['sensei'] == '' or request.form['days'] == '' or request.form['time_1'] == '' or request.form['time_2'] == '' or request.form['venue'] == '':
                 print("Testing")
                 return render_template('add_dojo.html',errorMessage = 401)
             file = request.files['dojo_image']
