@@ -147,7 +147,10 @@
                 <a href="/members"><i class="bi bi-circle"></i>Members</a>
               </li>
               <li>
-                <a href="/adminCredits"><i class="bi bi-circle"></i>Credits</a>
+                <a href="/Credits"><i class="bi bi-circle"></i>Credits</a>
+              </li>
+              <li>
+                <a href="/Points"><i class="bi bi-circle"></i>Points</a>
               </li>
             </ul>
           </li>
@@ -195,7 +198,7 @@
                             type="button"
                             class="btn btn-danger"
                             data-bs-toggle="modal"
-                            data-bs-target="#exampleModal"
+                            data-bs-target="#{{ member.member_id }}"
                           >
                             Add
                           </button>
@@ -203,7 +206,7 @@
                           <!-- Modal -->
                           <div
                             class="modal fade"
-                            id="exampleModal"
+                            id="{{ member.member_id }}"
                             tabindex="-1"
                             aria-labelledby="exampleModalLabel"
                             aria-hidden="true"
@@ -218,43 +221,45 @@
                                     Add Credits
                                   </h5>
                                 </div>
-                                <input
-                                  type="hidden"
-                                  name="credsID"
-                                  class="form-control"
-                                  id="exampleFormControlInput1"
-                                  value="{{ member.member_id }}"
-                                />
 
-                                <div class="modal-body">
-                                  <div class="mb-3">
-                                    <label
-                                      for="exampleFormControlInput1"
-                                      class="form-label"
-                                      >Enter number of credits to add</label
+                                <form action="/addCredits" method="post">
+                                  <div class="modal-body">
+                                    <div class="mb-3">
+                                      <label
+                                        for="exampleFormControlInput1"
+                                        class="form-label"
+                                        >Enter number of credits to add</label
+                                      >
+                                      <input
+                                        type="text"
+                                        name="credsValue"
+                                        class="form-control"
+                                        id="exampleFormControlInput1"
+                                      />
+                                      <input
+                                        type="hidden"
+                                        name="credsID"
+                                        class="form-control"
+                                        id="exampleFormControlInput1"
+                                        value="{{ member.member_id }}"
+                                      />
+                                    </div>
+                                  </div>
+                                  <div class="modal-footer">
+                                    <button
+                                      type="button"
+                                      class="btn btn-secondary"
+                                      data-bs-dismiss="modal"
                                     >
+                                      Close
+                                    </button>
                                     <input
-                                      type="text"
-                                      name="credsValue"
-                                      class="form-control"
-                                      id="exampleFormControlInput1"
+                                      type="submit"
+                                      class="btn btn-danger"
+                                      value="Add"
                                     />
                                   </div>
-                                </div>
-                                <div class="modal-footer">
-                                  <button
-                                    type="button"
-                                    class="btn btn-secondary"
-                                    data-bs-dismiss="modal"
-                                  >
-                                    Close
-                                  </button>
-                                  <input
-                                    type="submit"
-                                    class="btn btn-danger"
-                                    value="Add"
-                                  />
-                                </div>
+                                </form>
                               </div>
                             </div>
                           </div>
@@ -264,6 +269,9 @@
                       {% endif %} {% endfor %}
                     </tbody>
                   </table>
+                  {% if errorMessage == 401%}
+                  <span style="color: red">Please Enter Credits </span>{% endif
+                  %}
                 </div>
               </div>
             </div>

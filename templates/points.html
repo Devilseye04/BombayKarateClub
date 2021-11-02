@@ -54,7 +54,6 @@
     <link href="static/css/one/light-theme.css" rel="stylesheet" />
     <link href="static/css/one/semi-dark.css" rel="stylesheet" />
     <link href="static/css/one/header-colors.css" rel="stylesheet" />
-
     <title>BKC - Admin Panel</title>
   </head>
 
@@ -170,193 +169,82 @@
           <div class="col-12 col-lg-12 col-xl-8 d-flex">
             <div class="card radius-10 w-100">
               <div class="card-body">
-                <div class="d-flex align-items-center">
-                  <h4 class="mb-0">Members</h4>
-                  <div class="fs-5 ms-auto dropdown">
-                    <div class="col">
-                      <a href="/addMember" class="btn btn-secondary px-5">
-                        Add Member
-                      </a>
-                    </div>
-                  </div>
-                </div>
                 <div class="table-responsive mt-2">
-                  <table class="table align-middle mb-0">
-                    <thead class="table-light">
+                  <table class="table" id="creditTable">
+                    <thead>
                       <tr>
-                        <th>#</th>
-                        <th>Name</th>
-                        <th>Rank</th>
-                        <th>Dojo</th>
-                        <th>Membership #</th>
-                        <th>Details</th>
+                        <th scope="col">#</th>
+                        <th scope="col">Member Names</th>
+                        <th scope="col">Points</th>
+                        <th scope="col">Add</th>
                       </tr>
                     </thead>
+
                     <tbody>
-                      {% for member in members %}
+                      {% for member in memberDetails %} {% if member.age < 18 %}
                       <tr>
-                        <td>{{loop.index}}</td>
-                        <td>{{ member.fname + " " + member.lname }}</td>
-                        <td>
-                          <div class="d-flex align-items-center gap-3">
-                            {{ member.rank }}
-                          </div>
+                        <td scope="row">
+                          {{ member.member_id }}
+                          <input type="hidden" value="{{ member.member_id }}" />
                         </td>
-                        {% for dojo in dojos%} {% if dojo.dojo_id ==
-                        member.dojo_id%}
-                        <td>{{dojo.name}}</td>
-                        {% endif%} {% endfor %}
-                        <td>{{member.member_id}}</td>
+                        <td>{{ member.fname + " " + member.lname }}</td>
+                        {% for c in credit %} {% if c.member_id ==
+                        member.member_id %}
+
+                        <td>{{ c.points }}</td>
                         <td>
-                          <div class="d-flex align-items-center gap-3">
-                            <!-- Button trigger modal -->
-                            <button
-                              type="button"
-                              class="btn btn-primary"
-                              data-bs-toggle="modal"
-                              data-bs-target="#exampleScrollableModal"
-                            >
-                              Details
-                            </button>
-                            <!-- Modal -->
-                            <div
-                              class="modal fade"
-                              id="exampleScrollableModal"
-                              tabindex="-1"
-                              aria-hidden="true"
-                            >
-                              <div class="modal-dialog modal-dialog-scrollable">
-                                <div class="modal-content">
-                                  <div class="modal-header">
-                                    <h5 class="modal-title">Modal title</h5>
-                                    <button
-                                      type="button"
-                                      class="btn-close"
-                                      data-bs-dismiss="modal"
-                                      aria-label="Close"
-                                    ></button>
-                                  </div>
+                          <!-- Button trigger modal -->
+
+                          <button
+                            type="button"
+                            class="btn btn-danger"
+                            data-bs-toggle="modal"
+                            data-bs-target="#{{ member.member_id }}"
+                          >
+                            Add
+                          </button>
+
+                          <!-- Modal -->
+                          <div
+                            class="modal fade"
+                            id="{{ member.member_id }}"
+                            tabindex="-1"
+                            aria-labelledby="exampleModalLabel"
+                            aria-hidden="true"
+                          >
+                            <div class="modal-dialog">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <h5
+                                    class="modal-title"
+                                    id="exampleModalLabel"
+                                  >
+                                    Add Credits
+                                  </h5>
+                                </div>
+
+                                <form action="/addPoints" method="post">
                                   <div class="modal-body">
-                                    <p>
-                                      Cras mattis consectetur purus sit amet
-                                      fermentum. Cras justo odio, dapibus ac
-                                      facilisis in, egestas eget quam. Morbi leo
-                                      risus, porta ac consectetur ac, vestibulum
-                                      at eros.
-                                    </p>
-                                    <p>
-                                      Praesent commodo cursus magna, vel
-                                      scelerisque nisl consectetur et. Vivamus
-                                      sagittis lacus vel augue laoreet rutrum
-                                      faucibus dolor auctor.
-                                    </p>
-                                    <p>
-                                      Aenean lacinia bibendum nulla sed
-                                      consectetur. Praesent commodo cursus
-                                      magna, vel scelerisque nisl consectetur
-                                      et. Donec sed odio dui. Donec ullamcorper
-                                      nulla non metus auctor fringilla.
-                                    </p>
-                                    <p>
-                                      Cras mattis consectetur purus sit amet
-                                      fermentum. Cras justo odio, dapibus ac
-                                      facilisis in, egestas eget quam. Morbi leo
-                                      risus, porta ac consectetur ac, vestibulum
-                                      at eros.
-                                    </p>
-                                    <p>
-                                      Praesent commodo cursus magna, vel
-                                      scelerisque nisl consectetur et. Vivamus
-                                      sagittis lacus vel augue laoreet rutrum
-                                      faucibus dolor auctor.
-                                    </p>
-                                    <p>
-                                      Aenean lacinia bibendum nulla sed
-                                      consectetur. Praesent commodo cursus
-                                      magna, vel scelerisque nisl consectetur
-                                      et. Donec sed odio dui. Donec ullamcorper
-                                      nulla non metus auctor fringilla.
-                                    </p>
-                                    <p>
-                                      Cras mattis consectetur purus sit amet
-                                      fermentum. Cras justo odio, dapibus ac
-                                      facilisis in, egestas eget quam. Morbi leo
-                                      risus, porta ac consectetur ac, vestibulum
-                                      at eros.
-                                    </p>
-                                    <p>
-                                      Praesent commodo cursus magna, vel
-                                      scelerisque nisl consectetur et. Vivamus
-                                      sagittis lacus vel augue laoreet rutrum
-                                      faucibus dolor auctor.
-                                    </p>
-                                    <p>
-                                      Aenean lacinia bibendum nulla sed
-                                      consectetur. Praesent commodo cursus
-                                      magna, vel scelerisque nisl consectetur
-                                      et. Donec sed odio dui. Donec ullamcorper
-                                      nulla non metus auctor fringilla.
-                                    </p>
-                                    <p>
-                                      Cras mattis consectetur purus sit amet
-                                      fermentum. Cras justo odio, dapibus ac
-                                      facilisis in, egestas eget quam. Morbi leo
-                                      risus, porta ac consectetur ac, vestibulum
-                                      at eros.
-                                    </p>
-                                    <p>
-                                      Praesent commodo cursus magna, vel
-                                      scelerisque nisl consectetur et. Vivamus
-                                      sagittis lacus vel augue laoreet rutrum
-                                      faucibus dolor auctor.
-                                    </p>
-                                    <p>
-                                      Aenean lacinia bibendum nulla sed
-                                      consectetur. Praesent commodo cursus
-                                      magna, vel scelerisque nisl consectetur
-                                      et. Donec sed odio dui. Donec ullamcorper
-                                      nulla non metus auctor fringilla.
-                                    </p>
-                                    <p>
-                                      Cras mattis consectetur purus sit amet
-                                      fermentum. Cras justo odio, dapibus ac
-                                      facilisis in, egestas eget quam. Morbi leo
-                                      risus, porta ac consectetur ac, vestibulum
-                                      at eros.
-                                    </p>
-                                    <p>
-                                      Praesent commodo cursus magna, vel
-                                      scelerisque nisl consectetur et. Vivamus
-                                      sagittis lacus vel augue laoreet rutrum
-                                      faucibus dolor auctor.
-                                    </p>
-                                    <p>
-                                      Aenean lacinia bibendum nulla sed
-                                      consectetur. Praesent commodo cursus
-                                      magna, vel scelerisque nisl consectetur
-                                      et. Donec sed odio dui. Donec ullamcorper
-                                      nulla non metus auctor fringilla.
-                                    </p>
-                                    <p>
-                                      Cras mattis consectetur purus sit amet
-                                      fermentum. Cras justo odio, dapibus ac
-                                      facilisis in, egestas eget quam. Morbi leo
-                                      risus, porta ac consectetur ac, vestibulum
-                                      at eros.
-                                    </p>
-                                    <p>
-                                      Praesent commodo cursus magna, vel
-                                      scelerisque nisl consectetur et. Vivamus
-                                      sagittis lacus vel augue laoreet rutrum
-                                      faucibus dolor auctor.
-                                    </p>
-                                    <p>
-                                      Aenean lacinia bibendum nulla sed
-                                      consectetur. Praesent commodo cursus
-                                      magna, vel scelerisque nisl consectetur
-                                      et. Donec sed odio dui. Donec ullamcorper
-                                      nulla non metus auctor fringilla.
-                                    </p>
+                                    <div class="mb-3">
+                                      <label
+                                        for="exampleFormControlInput1"
+                                        class="form-label"
+                                        >Enter number of credits to add</label
+                                      >
+                                      <input
+                                        type="text"
+                                        name="credsValue"
+                                        class="form-control"
+                                        id="exampleFormControlInput1"
+                                      />
+                                      <input
+                                        type="hidden"
+                                        name="credsID"
+                                        class="form-control"
+                                        id="exampleFormControlInput1"
+                                        value="{{ member.member_id }}"
+                                      />
+                                    </div>
                                   </div>
                                   <div class="modal-footer">
                                     <button
@@ -366,22 +254,25 @@
                                     >
                                       Close
                                     </button>
-                                    <button
-                                      type="button"
-                                      class="btn btn-primary"
-                                    >
-                                      Save changes
-                                    </button>
+                                    <input
+                                      type="submit"
+                                      class="btn btn-danger"
+                                      value="Add"
+                                    />
                                   </div>
-                                </div>
+                                </form>
                               </div>
                             </div>
                           </div>
                         </td>
+                        {% endif %} {% endfor %}
                       </tr>
-                      {% endfor %}
+                      {% endif %} {% endfor %}
                     </tbody>
                   </table>
+                  {% if errorMessage == 401%}
+                  <span style="color: red">Please Enter Points </span>{% endif
+                  %}
                 </div>
               </div>
             </div>
@@ -526,5 +417,16 @@
     <script src="static/js/one/pace.min.js"></script>
     <!--app-->
     <script src="static/js/one/app.js"></script>
+    <script>
+      $("#creditTable tbody tr td:nth-child(4)").click(function () {
+        var memID = $(this)
+          .parent()
+          .parent()
+          .find("td:first")
+          .children("input")
+          .val();
+        console.log(memID);
+      });
+    </script>
   </body>
 </html>

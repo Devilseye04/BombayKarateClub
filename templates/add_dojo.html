@@ -157,6 +157,12 @@
                   ><i class="bi bi-circle"></i>Members</a
                 >
               </li>
+              <li>
+                <a href="/Credits"><i class="bi bi-circle"></i>Credits</a>
+              </li>
+              <li>
+                <a href="/Credits"><i class="bi bi-circle"></i>Points</a>
+              </li>
             </ul>
           </li>
         </ul>
@@ -206,11 +212,17 @@
           <input type="file" class="form-control" name="dojo_image" /><br />
         </div>
         <input type="submit" class="btn btn-dark" value="Submit" />
+        
       </form>
+      {% if errorMessage == 401%}
+                    <span style="color: red"
+                      >Please Enter Values In All The Fields </span
+                    >{% endif %}
       {% if error_message %}
       <script>alert("Please Enter Image File")</script>
       {% endif %}
     </div>
+
     <!-- <footer class="site_footer_wrap scheme_dark">
       <div class="copyright_wrap scheme_">
         <div class="copyright_wrap_inner">

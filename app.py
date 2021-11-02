@@ -1,6 +1,6 @@
 from datetime import datetime
 from enum import unique
-from logging import debug
+from logging import debug, error
 from flask import Flask, render_template, request,redirect,session,jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS, cross_origin
@@ -115,6 +115,8 @@ def home():
 def login():
     try:
         if request.method=='POST':
+            if request.form['uname'] == '' or request.form['pass']=='':
+                return redirect("/login")
             creds = Admin.query.filter_by(admin_uname = request.form['uname'],admin_pass=request.form['pass']).first()
             print(creds)
             if creds == None:
@@ -196,7 +198,9 @@ def addMember():
                 memCount = "00"+str(memCount)
             elif len(str(memCount)) == 2:
                 memCount = "0"+str(memCount)
-            
+            if request.form["dojo_id"] == '' or request.form["fname"] == '' or request.form["lname"] == '' or request.form["rank"] == '' or request.form["email"] == '' or request.form["address"] == '' or request.form["age"] == '' or request.form["pnum"] == '':
+                print("Testing")
+                return render_template('addMember.html',errorMessage = 401)
             memId = request.form["dojo_id"].upper() + request.form["fname"][0].upper()+request.form["lname"][0].upper()+str(memCount)
             addMem = bkcMember(member_id = memId,dojo_id = request.form["dojo_id"],fname = request.form["fname"],lname=request.form["lname"],rank=request.form["rank"],email= request.form["email"],address=request.form["address"],age=request.form["age"],pnum=request.form["pnum"],unique_id=str(memCount))
             creds = credit_table(member_id=memId,credit=0)
@@ -215,6 +219,7 @@ def addMember():
         return render_template("addMember.html",dojos=dojos)
     except Exception as e:
         print(e)
+        return render_template('addMember.html',errorMessage = 401)
 
 @app.route("/addDojo",methods=['GET','POST'])
 def addDojo():
@@ -227,6 +232,9 @@ def addDojo():
             if len(str(dojoCount))   == 1:
                 dojoCount = "0"+str(dojoCount)
             dojoId = "BKC"+str(dojoCount)
+            if request.form["dojo_id"] == '' or request.form["name"] == '' or request.form["sensei"] == '' or request.form["days"] == '' or request.form["time_1"] == '' or request.form["time_2"] == '' or request.form["venue"] == '':
+                print("Testing")
+                return render_template('add_dojo.html',errorMessage = 401)
             file = request.files['dojo_image']
             file.seek(0, os.SEEK_END)
             if file.tell() == 0:
@@ -240,6 +248,7 @@ def addDojo():
         return render_template('add_dojo.html')
     except Exception as e:
         print(e)
+        return render_template('add_dojo.html',errorMessage = 401)
 
 @app.route('/deleteDojo/<int:id>')
 def deleteDojo(id):
@@ -335,6 +344,8 @@ def addCredits():
             credit = credit_table().query.all()
             addcred = request.form["credsValue"]
             memID = request.form["credsID"]
+            if request.form["credsValue"] =='' or request.form["credsID"]=='':
+                return render_template('credits.html',credit=credit,memberDetails=memberDetails,errorMessage = 401)
             print(memID)
             for member in memberDetails:
                 if memID == member.member_id:
@@ -348,6 +359,9 @@ def addCredits():
                                 db.session.commit()
             return redirect("/Credits")
     except Exception as e:
+        memberDetails = bkcMember.query.all()
+        credit = credit_table().query.all()
+        return render_template('credits.html',credit=credit,memberDetails=memberDetails,errorMessage = 401)
         print(e)
 
 @app.route("/Credits", methods=['GET','POST'])
@@ -367,6 +381,8 @@ def addPoints():
             credit = point_table().query.all()
             addcred = request.form["credsValue"]
             memID = request.form["credsID"]
+            if request.form["credsValue"] =='' or request.form["credsID"]=='':
+                return render_template('points.html',credit=credit,memberDetails=memberDetails,errorMessage = 401)
             print(memID)
             for member in memberDetails:
                 if memID == member.member_id:
@@ -380,6 +396,9 @@ def addPoints():
                         continue
             return redirect("/Points")
     except Exception as e:
+        memberDetails = bkcMember.query.all()        
+        credit = point_table().query.all()
+        return render_template('points.html',credit=credit,memberDetails=memberDetails,errorMessage = 401)
         print(e)
 @app.route("/Points", methods=['GET','POST'])
 def points():

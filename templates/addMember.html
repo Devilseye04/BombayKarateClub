@@ -175,8 +175,9 @@
                         class="form-select"
                         aria-label="Default select example"
                         name="dojo_id"
+                        required
                       >
-                        <option selected required>Select Dojo</option>
+                        <option selected disabled>Select Dojo</option>
                         {% for dojo in dojos %}
                         <option value="{{ dojo.dojo_id }}">
                           {{ dojo.name }}
@@ -302,6 +303,10 @@
                         </button>
                       </div>
                     </div>
+                    {% if errorMessage == 401%}
+                    <span style="color: red"
+                      >Please Enter Values In All The Fields </span
+                    >{% endif %}
                   </div>
                 </div>
               </div>
