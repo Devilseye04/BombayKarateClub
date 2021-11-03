@@ -169,69 +169,55 @@
         <!--end navigation-->
       </aside>
       <!--end sidebar -->
-
-
-
       <main class="page-content">
-        <div class="row row-cols-1 row-cols-lg-2 row-cols-xl-2 row-cols-xxl-4">
-          
-      <h3>Add a Dojo</h3>
-      <br />
-      <form action="/addDojo" method="POST" enctype="multipart/form-data">
-        <div class="mb-3">
-          <label for="exampleFormControlInput1" class="form-label">Name</label>
-          <input type="text" class="form-control" name="name" />
-        </div>
-       
-        <div class="mb-3">
-          <label for="exampleFormControlInput1" class="form-label"
-            >Sensei</label
-          >
-          <input type="text" class="form-control" name="sensei" />
-        </div>
-        <div class="mb-3">
-          <label for="exampleFormControlInput1" class="form-label">Days</label>
-          <input type="text" class="form-control" name="days" />
-        </div>
-        <div class="mb-3">
-          <label for="exampleFormControlInput1" class="form-label"
-            >Time of the Day</label
-          >
-          <input type="text" class="form-control" name="time_1" />
-        </div>
-        <div class="mb-3">
-          <label for="exampleFormControlInput1" class="form-label">Time</label>
-          <input type="text" class="form-control" name="time_2" />
-        </div>
-        <div class="mb-3">
-          <label for="exampleFormControlInput1" class="form-label">Venue</label>
-          <input type="text" class="form-control" name="venue" />
-        </div>
-        <div class="mb-3">
-          <label for="exampleFormControlInput1" class="form-label"
-            >Image Path</label
-          >
-          <input type="file" class="form-control" name="dojo_image" /><br />
-        </div>
-        <input type="submit" class="btn btn-dark" value="Submit" />
-        
-      </form>
-      {% if errorMessage == 401%}
-                    <span style="color: red"
-                      >Please Enter Values In All The Fields </span
-                    >{% endif %}
-      {% if error_message %}
-      <script>alert("Please Enter Image File")</script>
-      {% endif %}
-      {% if errorMessage == 402%}
-                    <span style="color: red"
-                      >Internal Error {{ message }}</span
-                    >{% endif %}
-      {% if error_message %}
-      <script>alert("Please Enter Image File")</script>
-      {% endif %}
-    </div>
+      <class class="row">
+        <div class="col-12 col-lg-12 col-xl-8 d-flex">
+          <div class="card radius-10 w-100">
+            <div class="card-body">
+              <div class="d-flex align-items-center">
+                <h4 class="mb-0">Dojos</h4>
+                <div class="fs-5 ms-auto dropdown">
+                  <div class="col">
+                    <a href="/addDojo" class="btn btn-secondary px-5">
+                      Add Dojo
+                    </a>
+                  </div>
+                </div>
+              </div>
+              <div class="table-responsive mt-2">
+                <table class="table align-middle mb-0">
+                  <thead class="table-light">
+                    <tr>
+                      <th>#</th>
+                      <th>dojo_id</th>
+                      <th>name</th>
+                      <th>sensei</th>
+                      <th>days #</th>
+                      <th>time_1</th>
+                      <th>time_2</th>
+                      <th>venue</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for dojo in dojos %}
+                    <td>{{ loop.index }}</td>
+                    <td>{{ dojo.dojo_id }}</td>
+                    <td>{{ dojo.name }}</td>
+                    <td>{{ dojo.sensei }}</td>
+                    <td>{{ dojo.days }}</td>
+                    <td>{{ dojo.time_1 }}</td>
+                    <td>{{ dojo.time_2 }}</td>
+                    <td>{{ dojo.venue }}</td>
 
+                  </tbody>
+                  {% endfor %}
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </class>
+    </main>
     <!-- <footer class="site_footer_wrap scheme_dark">
       <div class="copyright_wrap scheme_">
         <div class="copyright_wrap_inner">

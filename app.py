@@ -214,12 +214,18 @@ def addMember():
                 db.session.add(points)
             db.session.commit()
             print("Member Added")
-            return render_template("addMember.html")
+            dojos = Dojos.query.all()
+            return render_template('adminDojo.html',dojos=dojos)   
         dojos = Dojos.query.all()
         return render_template("addMember.html",dojos=dojos)
     except Exception as e:
         print(e)
         return render_template('addMember.html',errorMessage = 401)
+
+@app.route("/dojoList",methods=['GET','POST'])   
+def dojoList():
+    dojos = Dojos.query.all()
+    return render_template('adminDojo.html',dojos=dojos)     
 
 @app.route("/addDojo",methods=['GET','POST'])
 def addDojo():
@@ -234,21 +240,26 @@ def addDojo():
             dojoId = "BKC"+str(dojoCount)
             if request.form['name'] == '' or request.form['sensei'] == '' or request.form['days'] == '' or request.form['time_1'] == '' or request.form['time_2'] == '' or request.form['venue'] == '':
                 print("Testing")
-                return render_template('add_dojo.html',errorMessage = 401)
+                dojos = Dojos.query.all()
+                return render_template('add_dojo.html',errorMessage = 401,dojos=dojos)
             file = request.files['dojo_image']
             file.seek(0, os.SEEK_END)
             if file.tell() == 0:
-                return render_template('add_dojo.html',error_message=True) 
+                dojos = Dojos.query.all()
+                return render_template('add_dojo.html',error_message=True,dojos=dojos) 
             file.seek(0)
             file.save('static/images/dojoImages/'+dojoId+'_'+secure_filename(file.filename)) 
             dojo = Dojos(dojo_id=dojoId,name = request.form['name'],sensei = request.form['sensei'],days =request.form['days'],time_1= request.form['time_1'],time_2=request.form['time_2'],venue=request.form['venue'], dojo_image='static/images/dojoImages/'+dojoId+'_'+secure_filename(file.filename))
             db.session.add(dojo)
             db.session.commit()
-            return render_template('add_dojo.html')
-        return render_template('add_dojo.html')
+            dojos = Dojos.query.all()
+            return render_template('adminDojo.html',dojos=dojos) 
+        dojos = Dojos.query.all()
+        return render_template('add_dojo.html',dojos=dojos)
     except Exception as e:
         print(e)
-        return render_template('add_dojo.html',errorMessage = 402,message=e)
+        dojos = Dojos.query.all()
+        return render_template('add_dojo.html',errorMessage = 402,dojos=dojos)
 
 @app.route('/deleteDojo/<int:id>')
 def deleteDojo(id):
