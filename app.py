@@ -248,7 +248,7 @@ def addDojo():
         return render_template('add_dojo.html')
     except Exception as e:
         print(e)
-        return render_template('add_dojo.html',errorMessage = 402)
+        return render_template('add_dojo.html',errorMessage = 402,message=e)
 
 @app.route('/deleteDojo/<int:id>')
 def deleteDojo(id):
