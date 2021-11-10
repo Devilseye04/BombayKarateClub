@@ -202,7 +202,7 @@ def addMember():
                 print("Testing")
                 return render_template('addMember.html',errorMessage = 401)
             memId = request.form["dojo_id"].upper() + request.form["fname"][0].upper()+request.form["lname"][0].upper()+str(memCount)
-            addMem = bkcMember(member_id = memId,dojo_id = request.form["dojo_id"],fname = request.form["fname"],lname=request.form["lname"],rank=request.form["rank"],email= request.form["email"],address=request.form["address"],age=request.form["age"],pnum=request.form["pnum"],unique_id=str(memCount))
+            addMem = bkcMember(member_id = memId,dojo_id = request.form["dojo_id" ],fname = request.form["fname"],lname=request.form["lname"],rank=request.form["rank"],email= request.form["email"],address=request.form["address"],age=request.form["age"],pnum=request.form["pnum"],unique_id=str(memCount))
             creds = credit_table(member_id=memId,credit=0)
             # attendence = Attendence(member_id = memId)
             points = point_table(member_id=memId,points=0)
@@ -215,7 +215,8 @@ def addMember():
             db.session.commit()
             print("Member Added")
             dojos = Dojos.query.all()
-            return render_template('adminDojo.html',dojos=dojos)   
+            members =  bkcMember.query.all()
+            return render_template("members.html",members=members,dojos=dojos)  
         dojos = Dojos.query.all()
         return render_template("addMember.html",dojos=dojos)
     except Exception as e:
@@ -316,7 +317,7 @@ def attendence(memID):
             db.session.commit()
             for member in memberDetails:
                 if memID == member.member_id:
-                    if member.age < 18:
+                    if member.age < 16:
                         print("kids")
                         for p in points:
                                 if member.member_id == p.member_id:
@@ -324,7 +325,7 @@ def attendence(memID):
                                     db.session.commit()
                     else:
                         print("adults")
-                        if member.rank.lower().replace(" ","") in ['9kyu','8kyu','7kyu']:
+                        if member.rank.lower().replace(" ","") in ['9kyu','8kyu','7kyu','white','yellow','orange']:
                             for c in credit:
                                 if member.member_id == c.member_id:
                                     c.credit = int(c.credit)+4
@@ -360,7 +361,7 @@ def addCredits():
             print(memID)
             for member in memberDetails:
                 if memID == member.member_id:
-                    if member.age < 18:
+                    if member.age < 16:
                         continue
                     else:
                         print("adults")        
@@ -397,7 +398,7 @@ def addPoints():
             print(memID)
             for member in memberDetails:
                 if memID == member.member_id:
-                    if member.age < 18:
+                    if member.age < 16:
                         for c in credit:
                             if member.member_id == c.member_id:
                                 c.points = int(c.points)+int(addcred)
@@ -442,33 +443,44 @@ def dojo():
 def dojoDetails():
     try:
         if request.method == 'POST':
-            # myJson = request.get_json()
             dojo_id = request.form['dojo_id']
+            print(dojo_id)
             memberDetails = bkcMember.query.filter_by(dojo_id = dojo_id).all()
+            memberCount =  0
+            juniorMemberCount = 0
+            attendence_count = 0
+            attendence = Attendence.query.all()
+            for a in attendence:
+                for member in memberDetails:
+                    if a.member_id == member.member_id:
+                        attendence_count+=1
+                        break
+                if attendence_count > 0:
+                    break 
+            print(attendence_count)
+            for member in memberDetails:
+                if member.age > 15:
+                    memberCount += 1
+                    break
+            
+            
+            for member in memberDetails:
+                if member.age <= 15:
+                    juniorMemberCount += 1
+                    break
+            # print(memberCount)
+
             credit = credit_table.query.all() 
             points = point_table().query.all()
             classdays = Classdays.query.with_entities(Classdays.date)
-            attendence = Attendence.query.all()
+            
             dojos = Dojos.query.all()
-            # classdays = classdays[::-1]
-            # for member in memberDetails:
-            #     for a in attendence:
-            #         if a.member_id == member.member_id
-
+            dojo_name = Dojos.query.filter_by(dojo_id=dojo_id).first()
             mem_id=[]
-
-
             cdays = []
             for c in classdays:
                 cdays = cdays + list(c)
-
             data = {}
-
-            # for a in attendence: 
-            #     for m in memberDetails:            
-            #         if a.member_id == m.member_id:
-            #             data.update({})
-
             for c in cdays:
                 temp = []
                 for a in attendence:
@@ -477,11 +489,9 @@ def dojoDetails():
                             continue
                         temp.append(a.member_id)
                 data.update({c : temp})    
-            
-            
-            print(data)
-            # data = json.loads(data)
-            return render_template('dojo_details.html',credit = credit,memberDetails = memberDetails,classdays=cdays[:8],attendence=attendence,points=points,data=data,dojos=dojos)
+            # print(data)
+            # print(dojo_name.name)
+            return render_template('dojo_details.html',attendence_count=attendence_count,juniorMemberCount=juniorMemberCount,credit = credit,memberDetails = memberDetails,memberCount=memberCount,classdays=cdays[:8],attendence=attendence,points=points,data=data,dojos=dojos,dojo_name=dojo_name)
     except Exception as e:
         print(e)
 

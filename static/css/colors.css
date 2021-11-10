@@ -404,13 +404,13 @@ ul.trx_addons_list_parameters>li em {
     border-color: #e9e9eb;
     background-color: #ffffff
 }
-.scheme_default button,
+/* .scheme_default button,
 .scheme_default input[type="reset"],
 .scheme_default input[type="submit"],
 .scheme_default input[type="button"] {
     background-color: #ff194f;
     color: #ffffff
-}
+} */
 .scheme_default input[type="submit"]:hover,
 .scheme_default input[type="reset"]:hover,
 .scheme_default input[type="button"]:hover,
@@ -1201,7 +1201,7 @@ ul.trx_addons_list_parameters>li em {
 .scheme_default .theme_button,
 .scheme_default .comments_wrap .form-submit input[type="submit"] {
     color: #ffffff!important;
-    background-color: #ff194f!important
+    background-color: #ffffff!important
 }
 .scheme_default .theme_button:hover,
 .scheme_default .more-link:hover,
@@ -1211,7 +1211,7 @@ ul.trx_addons_list_parameters>li em {
     background-color: #42caf3!important
 }
 .scheme_default .format-video .post_featured.with_thumb .post_video_hover {
-    background-color: #ff194f;
+    background-color: #ffffff;
     color: #ffffff
 }
 .scheme_default .format-video .post_featured.with_thumb .post_video_hover:hover {
@@ -1274,22 +1274,22 @@ ul.trx_addons_list_parameters>li em {
     color: #ffffff
 }
 .scheme_default .sc_button_hover_antiman:hover {
-    color: #ff194f!important
+    color: #000000!important
 }
 .scheme_default .post-password-form .sc_button_hover_antiman,
 .scheme_default .post-password-form .sc_button_hover_antiman:hover {
-    background-color: #ff194f!important;
-    color: #ffffff
+    background-color: #fff!important;
+    color: #000000
 }
 .scheme_default .post-password-form .sc_button_hover_antiman:hover {
     background-color: #42caf3!important
 }
-.scheme_default .sc_button_hover_antiman::before {
+/* .scheme_default .sc_button_hover_antiman::before {
     border-color: #ff194f
 }
 .scheme_default .sc_button_hover_antiman::after {
     background-color: #ff194f
-}
+} */
 .scheme_default .sc_button_hover_antiman:hover::after {
     background-color: #ffffff
 }
@@ -1304,10 +1304,10 @@ ul.trx_addons_list_parameters>li em {
 }
 .scheme_default .sc_button_white.sc_button_hover_antiman,
 .scheme_default .sc_button_white.sc_button_hover_antiman:hover {
-    color: #ff194f!important
+    color: #ffffff!important
 }
 .scheme_default .sc_button_white.sc_button_hover_antiman::before {
-    border-color: #ff194f
+    border-color: #ffffff
 }
 .scheme_default .sc_button_white_alt.sc_button_hover_antiman::after,
 .scheme_default .sc_button_white.sc_button_hover_antiman::after {
@@ -1318,7 +1318,7 @@ ul.trx_addons_list_parameters>li em {
 }
 .scheme_default .sc_price .sc_button_white.sc_button_hover_antiman:hover,
 .scheme_default .sc_button_white_alt.sc_button_hover_antiman:hover {
-    color: #ffffff!important
+    color: #000!important
 }
 .scheme_default .sc_price .sc_button_white.sc_button_hover_antiman::before,
 .scheme_default .sc_button_white_alt.sc_button_hover_antiman::before {
@@ -1329,14 +1329,14 @@ ul.trx_addons_list_parameters>li em {
     border: 2px solid #42caf3
 }
 .scheme_default .sc_button_bordered.sc_button_hover_antiman:hover {
-    color: #ff194f!important;
+    color: #ffffff!important;
     border-color: transparent
 }
 .scheme_default .sc_button_bordered.sc_button_hover_antiman::before {
     border-color: #42caf3
 }
 .scheme_default .sc_button_bordered.sc_button_hover_antiman:hover::before {
-    border-color: #ff194f
+    border-color: #ffffff
 }
 .scheme_default .sc_button_bordered.sc_button_hover_antiman::after {
     background-color: transparent

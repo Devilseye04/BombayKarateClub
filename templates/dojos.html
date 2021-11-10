@@ -241,6 +241,7 @@
             </div>
           </div>
         </div>
+
         <div class="page_content_wrap scheme_default">
           <div class="content_wrap">
             <div class="content">
@@ -272,96 +273,48 @@
                             >
                               Bombay Karate Club Dojos
                             </h2>
+
                             <div class="sc_content_container"></div>
                           </div>
                           <div class="vc_empty_space height_medium h32px">
                             <span class="vc_empty_space_inner"></span>
                           </div>
-                          <div
-                            class="
-                              sc_team sc_team_default
-                              swiper-slider-container
-                              slider_swiper
-                              slider_nocontrols
-                              slider_nopagination
-                            "
-                            data-slides-per-view="4"
-                            data-slides-space="20"
-                            data-slides-min-width="150"
-                          >
-                            <div
-                              class="
-                                sc_team_slider sc_item_slider
-                                slides
-                                swiper-wrapper
-                              "
-                            >
+                          <div class="container">
+                            <div class="row">
                               {% for dojo in alldojos %}
 
-                              <div class="swiper-slide">
-                                <div class="sc_team_item">
-                                  <div class="sc_team_item_thumb">
-                                    <img
-                                      src="{{ dojo.dojo_image }}"
-                                      class="
-                                        attachment-Bombay_Karate_Club-thumb-med_team
-                                        size-Bombay_Karate_Club-thumb-med_team
-                                      "
-                                      alt=""
-                                    />
-                                  </div>
-                                  <div class="sc_team_item_info">
-                                    <div class="sc_team_item_header">
-                                      <h3 class="sc_team_item_title">
-                                        {{ dojo.name }}
-                                      </h3>
-                                      <br />
-                                      <form action="/dojoDetails" method="post">
-                                        <input
-                                          type="hidden"
-                                          name="dojo_id"
-                                          value="{{ dojo.dojo_id }}"
-                                        />
-                                        <!-- <input
-                                          type="submit"
-                                          class="btn btn-outline-danger"
-                                          value="View"
-                                        /> -->
-                                        <button
-                                          type="submit"
-                                          class="btn btn-danger"
-                                        >
-                                          View
-                                        </button>
-                                      </form>
+                              <div class="col-3">
+                                <form action="/dojoDetails" method="post">
+                                  <input
+                                    type="hidden"
+                                    name="dojo_id"
+                                    value="{{ dojo.dojo_id }}"
+                                  />
+                                  <button type="submit" class="btn">
+                                    <div class="card" style="width: 18rem">
+                                      <img
+                                        src="{{ dojo.dojo_image }}"
+                                        class="
+                                          attachment-Bombay_Karate_Club-thumb-med_team
+                                          size-Bombay_Karate_Club-thumb-med_team
+                                        "
+                                        alt=""
+                                      />
 
-                                      <!-- <div class="sc_team_item_subtitle">
-                                        {{dojo.sensei }}
+                                      <div class="card-body">
+                                        <h4 class="" style="color: black">
+                                          {{ dojo.name }}
+                                        </h4>
+                                        <h6 style="color: red">
+                                          {{ dojo.venue}}
+                                        </h6>
+                                        <br />
                                       </div>
-                                      <br />
                                     </div>
-                                    <div class="sc_team_item_content">
-                                      <p>
-                                        <b>Days:</b><br />
-                                        {{ dojo.days }}
-                                      </p>
-                                      <br />
-                                      <p>
-                                        <b>Time:</b><br />
-                                        {{ dojo.time_1 }}<br />{{dojo.time_2 }}
-                                      </p>
-                                      <br />
-                                      <p>
-                                        <b>Venue:</b><br />
-                                        {{ dojo.venue }}
-                                      </p> -->
-                                      <br /><br />
-                                    </div>
-                                  </div>
-                                </div>
+                                  </button>
+                                </form>
                               </div>
                               {% endfor %}
-                              <!-- Here -->
                             </div>
                           </div>
                           <div class="vc_empty_space height_huge h32px">
