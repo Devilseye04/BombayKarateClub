@@ -112,16 +112,10 @@
                                 <div class="wpb_column vc_column_container vc_col-sm-12">
                                     <div class="vc_column-inner ">
                                         <div class="wpb_wrapper">
-                                                  <div class="sc_promo_text sc_float_center trx_addons_stretch_height">
+                                                
                                                     <div class="sc_promo_text_inner sc_align_center">
-                                                        <div class="sc_promo_content sc_item_content">
+                                                        
                                                            
-                                                             <div class="wpb_single_image wpb_content_element vc_align_center">
-                                                                <figure class="wpb_wrapper vc_figure">
-                                                                    <div class="vc_single_image-wrapper vc_box_border_grey">
-                                                                        <img width="120" height="120" src="static/images/bkc-logo-mark.png"\ class="vc_single_image-img attachment-full" alt="" /></div>
-                                                                </figure>
-                                                            </div>
                                                       
                                                             <div id="sc_content_381" class="sc_content sc_content_default"><br>
                                                                 <h3 class="sc_item_title sc_content_title sc_align_center sc_item_title_style_default">{{dojo_name.name}}</h3>
@@ -129,14 +123,15 @@
                                                                
                                                             </div>
                                                           
-                                                        </div>
+                                                        
                                                     </div>
-                                                </div>
-                                            </div>
+                                             
+                                            
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                            <br><br><br>
 
                             
 
@@ -145,8 +140,8 @@
     <div class="wpb_column vc_column_container vc_col-sm-12">
         <div class="vc_column-inner ">
             <div class="wpb_wrapper" style="text-align: center;">
-            
-                <h3 class="sc_item_title sc_content_title sc_align_center sc_item_title_style_default" id="hideAttendence"> Attendence</h3>
+            <div id="hideAttendence">
+                <h3 class="sc_item_title sc_content_title sc_align_center sc_item_title_style_default" > Attendence</h3>
                 <div class="vc_empty_space height_huge hide_on_mobile hide_on_notebook h32px">
                     <span class="vc_empty_space_inner"></span>
                 </div>
@@ -196,11 +191,9 @@
                 </table>
                        
             </div>
-     
-<div class="vc_empty_space height_large h32px">
-    <span class="vc_empty_space_inner"></span>
-</div>
-{% if memberCount != 0 %}
+        </div>
+<br><br><br>
+<div id="memberHide">
     <h3 class="sc_item_title sc_content_title sc_align_center sc_item_title_style_default">Member list</h3>
     <div class="vc_empty_space height_huge hide_on_mobile hide_on_notebook h32px">
         <span class="vc_empty_space_inner"></span>
@@ -243,19 +236,14 @@
     </tbody>
     </table>
     </div>
-{% endif %}
-
-<div class="vc_empty_space height_large h32px">
-    <span class="vc_empty_space_inner"></span>
 </div>
+<br><br><br>
 
-{% if juniorMemberCount != 0 %}								
+<div id="juniorHide">
 <div id="sc_content_381" class="sc_content sc_content_default"><br>
 	<h3 class="sc_item_title sc_content_title sc_align_center sc_item_title_style_default">BKC Points Table</h3>
 </div>
-<div class="vc_empty_space height_huge hide_on_mobile hide_on_notebook h32px">
-    <span class="vc_empty_space_inner"></span>
-</div>
+<br><br><br>
 <br>									
 <div id="toggletable3"> 
 <table style="height:auto" border="1" width="100%" cellspacing="0" cellpadding="0">
@@ -296,13 +284,10 @@
 </tbody>
 </table>
 </div>
-{% endif %}
-<div class="vc_empty_space height_large h32px">
-    <span class="vc_empty_space_inner"></span>
 </div>
-<div class="vc_empty_space height_huge hide_on_mobile hide_on_notebook h32px">
-                                                <span class="vc_empty_space_inner"></span>
-                                            </div>
+
+<br><br><br>
+
 																						
                                         </div>
                                     </div>
@@ -403,10 +388,17 @@
 <script>
 $(document).ready(function(){
     var a_count = "{{ attendence_count }}"
-        if ( a_count == "0"){
-            $("#attendenceTable").hide();
-            $("#hideAttendence").hide();
-        }
+    var m_count = "{{ memberCount }}"
+    var j_count = "{{ juniorMemberCount }}"
+    if ( a_count == "0"){
+        $("#hideAttendence").remove();   
+    }
+    if ( m_count == "0"){
+        $("#memberHide").remove();
+    }
+    if ( j_count == "0"){
+        $("#juniorHide").remove();
+    }
 });
 </script>
 </body>
